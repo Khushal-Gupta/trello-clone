@@ -1,0 +1,36 @@
+.buttonWrapper {
+  padding: 0.3rem 0rem;
+}
+
+.buttonWrapper button {
+  border: none;
+  width: 100%;
+  background-color: #f77f00;
+  color: white;
+  padding: 0.5rem 0rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 3px;
+}
+.buttonWrapper button:hover {
+  background-color: #cc6c05;
+}
+
+.editingModeWrapper {
+  padding: 0.3rem 0rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.editingModeWrapper .addButton {
+  border: none;
+  padding: 0.3rem 0.5rem;
+  background-color: rgb(106, 106, 241);
+  color: white;
+  border-radius: 3px;
+}
+/* 
+.editingModeWrapper .cancelButton {
+  border: none;
+  background-color: transparent;
+} */

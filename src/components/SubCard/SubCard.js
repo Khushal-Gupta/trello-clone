@@ -1,8 +1,8 @@
 import classes from './SubCard.module.css';
 
-const SubCard = (props) => {
+const SubCard = ({title}) => {
     return <div className={classes.wrapper}>
-        {props.state.title}
+        {title}
     </div>
 };
 

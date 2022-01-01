@@ -1,0 +1,26 @@
+.wrapper {
+  background-color: #fcca66;
+  text-align: center;
+  border-radius: 5px;
+  width: 150px;
+  flex: 0 0 150px;
+  padding: 0.5rem 0.5rem;
+  margin: 0rem 1rem;
+}
+
+.wrapper textarea{
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 0.3rem 0rem;
+  padding: 0rem;
+}
+
+.cardList {
+  list-style: none;
+  padding: 0rem;
+  margin: 0rem;
+}
+
+

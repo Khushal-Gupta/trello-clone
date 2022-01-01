@@ -1,26 +1,26 @@
 import { useState } from "react";
-import ProjectCard from "../components/ProjectCard";
-import { DUMMY_PROJECT_CARDS } from "../models/ProjectCardModel";
+import { Fragment } from "react/cjs/react.production.min";
+import AddProjectCardButton from "../components/AddProjectCardButton/AddProjectCardButton";
+import ProjectCard from "../components/ProjectCard/ProjectCard";
 import classes from "./ProjectCardList.module.css";
 
 const ProjectCardList = () => {
-  const [state, setState] = useState("");
-  const addCardHandler = () => {
-    console.log("updating state");
-    console.log(DUMMY_PROJECT_CARDS);
-
-    setState();
+  const [projectCardList, setprojectCardList] = useState([
+    'To Do"s',
+    "Achievements",
+    "Code Reviews",
+    "Design",
+  ]);
+  const onAddProjectCardHandler = (newProjectCard) => {
+    setprojectCardList((prevlist) => [...prevlist, newProjectCard]);
   };
+
+  const elems = projectCardList.map((elem, index) => <ProjectCard key={index} title={elem} />);
+  elems.push(<AddProjectCardButton onAdd={onAddProjectCardHandler} />);
   return (
-    <div className={classes.wrapper}>
-      {DUMMY_PROJECT_CARDS.map((elem) => (
-        <ProjectCard
-          state={elem.state}
-          object={elem}
-          onAddCard={addCardHandler}
-        />
-      ))}
-    </div>
+    <Fragment>
+      <div className={classes.wrapper}>{elems}</div>
+    </Fragment>
   );
 };
 
