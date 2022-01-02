@@ -50,8 +50,21 @@
   background-color: blue;
 }
 
+.cancelButton {
+  background-color: transparent;
+  border:none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  margin-left: 1rem;
+  color: rgb(75, 75, 75);
+}
+
+.cancelButton:hover{
+  color: black;
+}
 
 .buttonWrapper{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }

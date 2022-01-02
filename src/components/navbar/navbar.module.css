@@ -5,5 +5,7 @@
   text-align: left;
   color: white;
   font-weight: bold;
+  width: 100%;
+  box-sizing: border-box;
   border-bottom: 1px solid white;
 }

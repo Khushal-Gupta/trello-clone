@@ -4,7 +4,7 @@ import ProjectCardList from './pages/ProjectCardList';
 
 function App() {
   return (
-    <div className="center">
+    <div className="completeWrapper" >
       <Navbar/>
       <ProjectCardList/>
     </div>
