@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import CreateTaskForm from "../CreateTaskForm/CreateTaskForm";
 import SubCard from "../SubCard/SubCard";
 import classes from "./ProjectCard.module.css";
@@ -7,31 +7,11 @@ const ProjectCard = ({ title }) => {
   const [cardList, setCardList] = useState(["First Sub Card"]);
   const [showNewSubCardEditor, setShowNewSubCardEditor] = useState(false);
 
-  const newTaskFormRef = useRef(null);
-
   const addCardHandler = (title) => {
     if (title) {
       setCardList((prev) => [...prev, title]);
     }
   };
-
-  useEffect(() => {
-    if (showNewSubCardEditor) {
-      function handleClickOutside(event) {
-        if (
-          newTaskFormRef.current &&
-          !newTaskFormRef.current.contains(event.target) // Check if the clicked element is inside the form
-        ) {
-          setShowNewSubCardEditor(false);
-        }
-      }
-      document.addEventListener("click", handleClickOutside);
-
-      return () => {
-        document.removeEventListener("click", handleClickOutside);
-      };
-    }
-  }, [showNewSubCardEditor]);
 
   return (
     <div className={classes.wrapper}>

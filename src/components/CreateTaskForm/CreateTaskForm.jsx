@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function CreateTaskForm({
-  showNewSubCardEditor,
   setShowNewSubCardEditor,
   addCardHandler,
 }) {
@@ -13,22 +12,20 @@ export default function CreateTaskForm({
   };
 
   useEffect(() => {
-    if (showNewSubCardEditor) {
-      function handleClickOutside(event) {
-        if (
-          newTaskFormRef.current &&
-          !newTaskFormRef.current.contains(event.target) // Check if the clicked element is inside the form
-        ) {
-          setShowNewSubCardEditor(false);
-        }
+    function handleClickOutside(event) {
+      if (
+        newTaskFormRef.current &&
+        !newTaskFormRef.current.contains(event.target) // Check if the clicked element is inside the form
+      ) {
+        setShowNewSubCardEditor(false);
       }
-      document.addEventListener("click", handleClickOutside);
-
-      return () => {
-        document.removeEventListener("click", handleClickOutside);
-      };
     }
-  }, [setShowNewSubCardEditor, showNewSubCardEditor]);
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [setShowNewSubCardEditor]);
 
   return (
     <form
