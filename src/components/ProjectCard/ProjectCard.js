@@ -1,41 +1,73 @@
-import { Fragment, useRef, useState } from "react";
-import AddSubCardButton from "../AddSubCardButton/AddSubCardButton";
+import { useEffect, useRef, useState } from "react";
+import CreateTaskForm from "../CreateTaskForm/CreateTaskForm";
 import SubCard from "../SubCard/SubCard";
 import classes from "./ProjectCard.module.css";
 
 const ProjectCard = ({ title }) => {
   const [cardList, setCardList] = useState(["First Sub Card"]);
   const [showNewSubCardEditor, setShowNewSubCardEditor] = useState(false);
-  const [newSubCardTitle, setNewSubCardTitle] = useState("");
-  const textareaRef = useRef();
 
-  const addCardHandler = (newSubCard) => {
-    setCardList((prev) => [...prev, newSubCard]);
+  const newTaskFormRef = useRef(null);
+
+  const addCardHandler = (title) => {
+    if (title) {
+      setCardList((prev) => [...prev, title]);
+    }
   };
-  const onChangeNewSubCardTitle = (event) => {
-    setNewSubCardTitle(event.target.value);
-  };
-  const onBlurNewSubCardEditing = (event) => {
-    // const value = event.target.value;
-    // if (value) {
-    //   addCardHandler(value);
-    // }
-    // setShowNewSubCardEditor(false);
-    // setNewSubCardTitle("");
-  };
+
+  useEffect(() => {
+    if (showNewSubCardEditor) {
+      function handleClickOutside(event) {
+        if (
+          newTaskFormRef.current &&
+          !newTaskFormRef.current.contains(event.target) // Check if the clicked element is inside the form
+        ) {
+          setShowNewSubCardEditor(false);
+        }
+      }
+      document.addEventListener("click", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }
+  }, [showNewSubCardEditor]);
 
   return (
-    <Fragment>
-      <div className={classes.wrapper}>
-        <h3 className={classes.header}>{title}</h3>
-        <ul className={classes.cardList}>
-          {cardList.map((elem, index) => (
-            <li key={index}>
-              <SubCard title={elem} />
-            </li>
-          ))}
-        </ul>
-        {showNewSubCardEditor && (
+    <div className={classes.wrapper}>
+      <h3 className={classes.header}>{title}</h3>
+      <ul className={classes.cardList}>
+        {cardList.map((elem, index) => (
+          <li key={index}>
+            <SubCard title={elem} />
+          </li>
+        ))}
+      </ul>
+      {showNewSubCardEditor ? (
+        <CreateTaskForm
+          showNewSubCardEditor={showNewSubCardEditor}
+          setShowNewSubCardEditor={setShowNewSubCardEditor}
+          addCardHandler={addCardHandler}
+        />
+      ) : (
+        <button
+          style={{
+            border: "none",
+            width: "100%",
+            backgroundColor: "#f77f00",
+            color: "white",
+            padding: "0.5rem 0rem",
+            fontSize: "1rem",
+            fontWeight: 700,
+            borderRadius: "3px",
+            cursor: "pointer",
+          }}
+          onClick={() => setShowNewSubCardEditor(true)}
+        >
+          + Add New Task
+        </button>
+      )}
+      {/* {showNewSubCardEditor && (
           <textarea
             ref={textareaRef}
             value={newSubCardTitle}
@@ -61,9 +93,8 @@ const ProjectCard = ({ title }) => {
             setNewSubCardTitle("");
           }}
           showCancel={showNewSubCardEditor}
-        />
-      </div>
-    </Fragment>
+        /> */}
+    </div>
   );
 };
 
