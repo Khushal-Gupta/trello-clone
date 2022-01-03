@@ -36,7 +36,6 @@ const ProjectCard = ({ title }) => {
         projectCardRef.current &&
         !projectCardRef.current.contains(event.target)
       ) {
-        console.log("clicked outside the project card");
         setShowNewSubCardEditor(false);
         setNewSubCardTitle("");
       }

@@ -15,8 +15,15 @@ const ProjectCardList = () => {
     setprojectCardList((prevlist) => [...prevlist, newProjectCard]);
   };
 
-  const elems = projectCardList.map((elem, index) => <ProjectCard key={index} title={elem} />);
-  elems.push(<AddProjectCardButton onAdd={onAddProjectCardHandler} key = 'addProjectCardButton' />);
+  const elems = projectCardList.map((elem, index) => (
+    <ProjectCard key={index} title={elem} />
+  ));
+  elems.push(
+    <AddProjectCardButton
+      onAdd={onAddProjectCardHandler}
+      key="addProjectCardButton"
+    />
+  );
   return (
     <Fragment>
       <div className={classes.wrapper}>{elems}</div>

@@ -14,6 +14,7 @@ export default function AddProjectCardButton({ onAdd }) {
     if (newListTitle) {
       onAdd(newListTitle);
       setEditingMode(false);
+      setnewListTitle('');
     }
   };
 

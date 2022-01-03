@@ -10,7 +10,12 @@
 
 .wrapper textarea {
   box-sizing: border-box;
+  padding: 0.2rem 0.3rem;
   resize: none;
+}
+.wrapper textarea:focus,
+.wrapper textarea:active {
+  outline-color: rgb(209, 137, 2);
 }
 
 .header {
