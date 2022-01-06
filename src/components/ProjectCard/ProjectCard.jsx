@@ -4,7 +4,7 @@ import clsx from "clsx";
 import SubCard from "../SubCard/SubCard";
 import classes from "./ProjectCard.module.css";
 
-const ProjectCard = ({ title }) => {
+const ProjectCard = ({ title, passedClasses }) => {
   const [cardList, setCardList] = useState(["First Sub Card"]);
   const [showNewSubCardEditor, setShowNewSubCardEditor] = useState(false);
   const [newSubCardTitle, setNewSubCardTitle] = useState("");
@@ -47,7 +47,7 @@ const ProjectCard = ({ title }) => {
   }, []);
 
   return (
-    <div className={classes.wrapper} ref={projectCardRef}>
+    <div className={clsx(classes.wrapper, passedClasses)} ref={projectCardRef} >
       <h3 className={classes.header}>{title}</h3>
       <ul className={classes.cardList}>
         {cardList.map((elem, index) => (

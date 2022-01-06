@@ -1,14 +1,34 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import reactDom from "react-dom";
 import classes from "./Modal.module.css";
 import OutlineX from "../../assets/outline-close.svg";
+import clsx from "clsx";
 
 const container = document.createElement("div");
 container.id = "modal-hook";
 document.body.appendChild(container);
 
-export default function Modal({ show, children, onClose, showCloseButton }) {
+export default function Modal({
+  show,
+  children,
+  onClose,
+  showCloseButton,
+  passedModalClasses,
+}) {
   const backdropRef = useRef();
+
+  useEffect(() => {
+    const escKeyPressHandler = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", escKeyPressHandler);
+    return () => {
+      document.removeEventListener("keydown", escKeyPressHandler);
+    };
+  }, [onClose]);
+
   if (!show) return null;
 
   const backdropClickHandler = (event) => {
@@ -16,6 +36,7 @@ export default function Modal({ show, children, onClose, showCloseButton }) {
       onClose();
     }
   };
+  console.log(clsx( passedModalClasses));
 
   const content = (
     <div
@@ -23,7 +44,7 @@ export default function Modal({ show, children, onClose, showCloseButton }) {
       onClick={backdropClickHandler}
       ref={backdropRef}
     >
-      <div className={classes.modal}>
+      <div className={clsx(classes.modal, passedModalClasses)}>
         {showCloseButton && (
           <button className={classes.closeButton} onClick={onClose}>
             <img src={OutlineX} alt="close" />

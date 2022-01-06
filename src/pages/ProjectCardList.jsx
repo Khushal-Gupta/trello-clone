@@ -16,12 +16,13 @@ const ProjectCardList = () => {
   };
 
   const elems = projectCardList.map((elem, index) => (
-    <ProjectCard key={index} title={elem} />
+    <ProjectCard key={index} title={elem} passedClasses={classes.childStyles} />
   ));
   elems.push(
     <AddProjectCardButton
       onAdd={onAddProjectCardHandler}
       key="addProjectCardButton"
+      passedClasses={classes.childStyles}
     />
   );
   return (

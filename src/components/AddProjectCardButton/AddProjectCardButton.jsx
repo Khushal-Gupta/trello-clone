@@ -1,7 +1,8 @@
+import clsx from "clsx";
 import { useState, useRef, useEffect } from "react";
 import classes from "./AddProjectCardButton.module.css";
 
-export default function AddProjectCardButton({ onAdd }) {
+export default function AddProjectCardButton({ onAdd, passedClasses }) {
   const [editingMode, setEditingMode] = useState(false);
   const [newListTitle, setnewListTitle] = useState("");
   const inputFormRef = useRef(null);
@@ -14,7 +15,7 @@ export default function AddProjectCardButton({ onAdd }) {
     if (newListTitle) {
       onAdd(newListTitle);
       setEditingMode(false);
-      setnewListTitle('');
+      setnewListTitle("");
     }
   };
 
@@ -51,7 +52,10 @@ export default function AddProjectCardButton({ onAdd }) {
     );
 
   return (
-    <div className={classes.editingModeWrapper} ref={inputFormRef}>
+    <div
+      className={clsx(classes.editingModeWrapper, passedClasses)}
+      ref={inputFormRef}
+    >
       <input type="text" value={newListTitle} onChange={onChangeTitleHandler} />
       <div className={classes.buttonWrapper}>
         <button
