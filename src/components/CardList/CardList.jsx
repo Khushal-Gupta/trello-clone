@@ -1,43 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
-import SubCard from "../SubCard/SubCard";
-import classes from "./ProjectCard.module.css";
+import Card from "../Card";
+import classes from "./CardList.module.css";
 
-const ProjectCard = ({ title, passedClasses }) => {
-  const [cardList, setCardList] = useState(["First Sub Card"]);
-  const [showNewSubCardEditor, setShowNewSubCardEditor] = useState(false);
-  const [newSubCardTitle, setNewSubCardTitle] = useState("");
-  const projectCardRef = useRef(null);
+export default function CardList({ title, passedClasses }) {
+  const [cardList, setCardList] = useState(["First Card"]);
+  const [showNewCardEditor, setShowNewCardEditor] = useState(false);
+  const [newCardTitle, setNewCardTitle] = useState("");
+  const taskListRef = useRef(null);
 
   const addCardHandler = (event) => {
-    const value = newSubCardTitle;
+    const value = newCardTitle;
     if (value) {
       setCardList((prev) => [...prev, value]);
-      setNewSubCardTitle("");
+      setNewCardTitle("");
     }
-    setShowNewSubCardEditor(true);
+    setShowNewCardEditor(true);
   };
-  const onChangeNewSubCardTitle = (event) => {
-    setNewSubCardTitle(event.target.value);
+  const onChangeNewCardTitle = (event) => {
+    setNewCardTitle(event.target.value);
   };
 
   const onCancelEditingNewCard = () => {
-    setShowNewSubCardEditor(false);
-    setNewSubCardTitle("");
+    setShowNewCardEditor(false);
+    setNewCardTitle("");
   };
 
   useEffect(() => {
     const outsideClickHandler = (event) => {
-      // console.log(title);
-      // console.log(event.target);
-      // console.log(projectCardRef.current.contains(event.target), title);
-      if (
-        projectCardRef.current &&
-        !projectCardRef.current.contains(event.target)
-      ) {
-        setShowNewSubCardEditor(false);
-        setNewSubCardTitle("");
+      if (taskListRef.current && !taskListRef.current.contains(event.target)) {
+        setShowNewCardEditor(false);
+        setNewCardTitle("");
       }
     };
     document.addEventListener("click", outsideClickHandler);
@@ -47,35 +41,33 @@ const ProjectCard = ({ title, passedClasses }) => {
   }, []);
 
   return (
-    <div className={clsx(classes.wrapper, passedClasses)} ref={projectCardRef} >
+    <div className={clsx(classes.wrapper, passedClasses)} ref={taskListRef}>
       <h3 className={classes.header}>{title}</h3>
       <ul className={classes.cardList}>
         {cardList.map((elem, index) => (
-          <li key={index}>
-            <SubCard title={elem} />
-          </li>
+          <Card title={elem} key={index} />
         ))}
       </ul>
-      {showNewSubCardEditor && (
+      {showNewCardEditor && (
         <textarea
-          value={newSubCardTitle}
-          onChange={onChangeNewSubCardTitle}
+          value={newCardTitle}
+          onChange={onChangeNewCardTitle}
           placeholder="Enter Something...."
           autoFocus
           style={{ width: "100%", border: "none" }}
           rows={3}
-        ></textarea>
+        />
       )}
       <div
         className={clsx(
           classes.buttonWrapper,
-          showNewSubCardEditor && classes.hidden
+          showNewCardEditor && classes.hidden
         )}
       >
         <button onClick={addCardHandler}>+ Add Card</button>
       </div>
 
-      {showNewSubCardEditor && (
+      {showNewCardEditor && (
         <div className={classes.editingModeWrapper}>
           <button
             type="button"
@@ -95,6 +87,4 @@ const ProjectCard = ({ title, passedClasses }) => {
       )}
     </div>
   );
-};
-
-export default ProjectCard;
+}

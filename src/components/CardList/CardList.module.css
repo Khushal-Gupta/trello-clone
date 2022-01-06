@@ -20,6 +20,7 @@
 .header {
   margin: 0.3rem 0rem;
   padding: 0rem;
+  overflow-wrap: break-word;
 }
 
 .cardList {

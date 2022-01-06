@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { useState, useRef, useEffect } from "react";
-import classes from "./AddProjectCardButton.module.css";
+import classes from "./AddCardListButton.module.css";
 
-export default function AddProjectCardButton({ onAdd, passedClasses }) {
+export default function AddCardListButton({ onAdd, passedClasses }) {
   const [editingMode, setEditingMode] = useState(false);
   const [newListTitle, setnewListTitle] = useState("");
   const inputFormRef = useRef(null);

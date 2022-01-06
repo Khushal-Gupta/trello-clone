@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { Fragment } from "react/cjs/react.production.min";
-import SubCardModal from "../SubCardModal/SubCardModal";
-import classes from "./SubCard.module.css";
+import { useState, Fragment } from "react";
+import classes from "./Card.module.css";
 
-const SubCard = ({ title }) => {
+export default function Card({ title }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -17,14 +15,12 @@ const SubCard = ({ title }) => {
       >
         {title}
       </div>
-      <SubCardModal
+      {/* <CardModal
         show={showModal}
         onClose={() => {
           setShowModal(false);
         }}
-      ></SubCardModal>
+      ></CardModal> */}
     </Fragment>
   );
-};
-
-export default SubCard;
+}

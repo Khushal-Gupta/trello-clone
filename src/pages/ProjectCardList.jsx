@@ -1,35 +1,29 @@
 import { useState } from "react";
-import { Fragment } from "react/cjs/react.production.min";
-import AddProjectCardButton from "../components/AddProjectCardButton/AddProjectCardButton";
-import ProjectCard from "../components/ProjectCard/ProjectCard";
+import AddCardListButton from "../components/AddCardListButton";
+import CardList from "../components/CardList";
 import classes from "./ProjectCardList.module.css";
 
-const ProjectCardList = () => {
-  const [projectCardList, setprojectCardList] = useState([
+export default function ProjectCardList() {
+  const [listOfCardList, setListOfCardList] = useState([
     'To Do"s',
     "Achievements",
     "Code Reviews",
     "Design",
   ]);
-  const onAddProjectCardHandler = (newProjectCard) => {
-    setprojectCardList((prevlist) => [...prevlist, newProjectCard]);
+  const onAddCardListHandler = (newCardList) => {
+    setListOfCardList((prevlist) => [...prevlist, newCardList]);
   };
 
-  const elems = projectCardList.map((elem, index) => (
-    <ProjectCard key={index} title={elem} passedClasses={classes.childStyles} />
+  const elems = listOfCardList.map((elem, index) => (
+    <CardList key={index} title={elem} passedClasses={classes.childStyles} />
   ));
+
   elems.push(
-    <AddProjectCardButton
-      onAdd={onAddProjectCardHandler}
+    <AddCardListButton
+      onAdd={onAddCardListHandler}
       key="addProjectCardButton"
       passedClasses={classes.childStyles}
     />
   );
-  return (
-    <Fragment>
-      <div className={classes.wrapper}>{elems}</div>
-    </Fragment>
-  );
-};
-
-export default ProjectCardList;
+  return <div className={classes.wrapper}>{elems}</div>;
+}
