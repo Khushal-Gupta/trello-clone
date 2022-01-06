@@ -9,3 +9,8 @@
     overflow-x: auto;
     flex-grow: 1;
 }
+
+.childStyles {
+    margin-left: 0;
+    margin-right: 1.5rem;
+}
