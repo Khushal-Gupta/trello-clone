@@ -1,26 +1,32 @@
 import { useState, Fragment } from "react";
+import CardModal from "../CardModal";
 import classes from "./Card.module.css";
 
-export default function Card({ title }) {
+export default function Card({ cardTitle:initialCardTitle, listTitle }) {
   const [showModal, setShowModal] = useState(false);
-
+  const [cardTitle, setCardTitle] = useState(initialCardTitle);
+  
   return (
     <Fragment>
       <div
         className={classes.wrapper}
         onClick={() => {
-          console.log("modal should be opened");
           setShowModal(true);
         }}
       >
-        {title}
+        {cardTitle}
       </div>
-      {/* <CardModal
+
+      <CardModal
         show={showModal}
         onClose={() => {
           setShowModal(false);
         }}
-      ></CardModal> */}
+        showCloseButton
+        cardTitle={cardTitle}
+        listTitle ={listTitle}
+        cardTitleChangeHandler ={setCardTitle}
+      />
     </Fragment>
   );
 }

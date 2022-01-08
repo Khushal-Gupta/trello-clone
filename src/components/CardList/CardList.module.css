@@ -11,6 +11,7 @@
   box-sizing: border-box;
   padding: 0.2rem 0.3rem;
   resize: none;
+  font-family: inherit;
 }
 .wrapper textarea:focus,
 .wrapper textarea:active {
@@ -42,6 +43,7 @@
   font-size: 1rem;
   font-weight: 700;
   border-radius: 3px;
+  cursor: pointer;
 }
 .buttonWrapper button:hover {
   background-color: #cc6c05;

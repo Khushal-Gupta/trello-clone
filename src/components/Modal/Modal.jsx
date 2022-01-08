@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import reactDom from "react-dom";
 import classes from "./Modal.module.css";
-import OutlineX from "../../assets/outline-close.svg";
 import clsx from "clsx";
+import {GrClose} from 'react-icons/gr';
 
 const container = document.createElement("div");
 container.id = "modal-hook";
@@ -36,7 +36,6 @@ export default function Modal({
       onClose();
     }
   };
-  console.log(clsx( passedModalClasses));
 
   const content = (
     <div
@@ -47,9 +46,10 @@ export default function Modal({
       <div className={clsx(classes.modal, passedModalClasses)}>
         {showCloseButton && (
           <button className={classes.closeButton} onClick={onClose}>
-            <img src={OutlineX} alt="close" />
+            <GrClose/>
           </button>
         )}
+      
         {children}
       </div>
     </div>

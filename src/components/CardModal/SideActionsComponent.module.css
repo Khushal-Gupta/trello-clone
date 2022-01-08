@@ -1,0 +1,57 @@
+.centerInsideContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5e6c84;
+  margin-top: 0.5rem;
+}
+.cardActionItemWrapper {
+  color: #172b4d;;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  padding: 0.2rem 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  width: 100%;
+  border: none;
+  overflow: hidden;
+}
+
+.cardActionItemIconWrapper {
+  width: 25px;
+  height: 25px;
+}
+
+.cardActionItemIconStyles {
+  height: 16px;
+  width: 16px;
+}
+.cardActionItemLabel {
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+  font-weight: lighter;
+  text-overflow: ellipsis;
+  height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.lightTextClass {
+  color: #5e6c84;
+}
+
+.modalButton {
+  background-color: #091e420a;
+  border: none;
+}
+
+.modalButton:hover,
+.modalButton:active {
+  background-color: rgba(0, 0, 0, 0.116);
+}

@@ -45,7 +45,7 @@ export default function CardList({ title, passedClasses }) {
       <h3 className={classes.header}>{title}</h3>
       <ul className={classes.cardList}>
         {cardList.map((elem, index) => (
-          <Card title={elem} key={index} />
+          <Card cardTitle={elem} key={index} listTitle={title}/>
         ))}
       </ul>
       {showNewCardEditor && (

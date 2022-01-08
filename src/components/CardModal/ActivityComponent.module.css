@@ -1,0 +1,153 @@
+.activityWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.activityHeaderWrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.activityHeader {
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #172b4d;
+}
+.iconWrapper {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconStyle {
+  width: 20px;
+  height: 20px;
+}
+.centerInsideContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activityItemWrapper {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  margin-top: 1.2rem;
+}
+
+.activityItemImagePlaceholder {
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+  height: 30px;
+  width: 30px;
+}
+
+.activityItemCommentBoxWrapper {
+  flex: 1;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.068);
+}
+.activityItemCommentBoxWrapper:hover {
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.185);
+}
+
+.commentBoxTextarea {
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  width: 100%;
+  font-family: inherit;
+}
+.commentBoxTextarea:focus {
+  outline: none;
+}
+
+.commentBoxSaveButton {
+  border: none;
+  background-color: #0079bf;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+}
+.commentBoxCloseButton {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0.3rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.commentBoxActionsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0rem 0.5rem;
+  padding-bottom: 0.3rem;
+}
+
+.commentBoxItemsWrapper {
+  display: flex;
+  align-items: center;
+}
+.commentBoxItemIconWrapper {
+  border: none;
+  background-color: transparent;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+}
+
+.commentBoxItemIconWrapper:hover {
+  background-color: rgba(0, 0, 0, 0.116);
+}
+
+.commentBoxItemIconStyle {
+  height: 16px;
+  width: 16px;
+  color: #172b4d;
+}
+
+.previousActivityMainContentWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.previousActivityMainContentHeader {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.previousActivityHeaderName {
+  font-weight: bold;
+}
+
+.previousActivityMainContentFooterWrapper {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+  color: #5e6c84;
+}
+
+.previousActivityEditButton {
+  cursor: pointer;
+}
+
+.previousActivityDeleteButton {
+  cursor: pointer;
+}
+
+.previousActivitySpacer {
+  padding: 0rem 0.2rem;
+}
