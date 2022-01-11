@@ -31,7 +31,6 @@ export default function SideActionsComponent() {
       style={{
         flex: "1",
         marginLeft: "0.8rem",
-        // backgroundColor: "lightgreen",
       }}
     >
       <div className={classes.heading}>Add to Card</div>

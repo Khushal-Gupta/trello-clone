@@ -1,22 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import classes from "./TitleComponent.module.css";
 import { MdTitle } from "react-icons/md";
 import clsx from "clsx";
 import { AiOutlineEye } from "react-icons/ai";
 import { IconContext } from "react-icons";
+import { CardListContext } from "../../context/cardlist-context";
 
-export default function TitleComponent({
-  cardTitle: passedCardTitle,
-  listTitle,
-  cardTitleChangeHandler,
-}) {
+export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [title, setTitle] = useState(passedCardTitle);
+  const cardListContext = useContext(CardListContext);
+  const { setCardTitle, title: listTitle } = cardListContext;
+  const { title } = cardListContext.listOfCard.find(
+    (elem) => elem.id === cardId
+  );
+
   const textareaRef = useRef(null);
   const onBlurTitleFieldHandler = (event) => {
     const value = event.target.value;
+    console.log(value);
     if (value) {
-      cardTitleChangeHandler(value);
+      setCardTitle(cardId, value);
       setIsEditMode(false);
     }
   };
@@ -55,9 +58,8 @@ export default function TitleComponent({
             setIsEditMode(true);
           }}
           onBlur={onBlurTitleFieldHandler}
-          value={title}
+          defaultValue={title}
           onChange={(event) => {
-            setTitle(event.target.value);
             handleAutoHeight();
           }}
         />

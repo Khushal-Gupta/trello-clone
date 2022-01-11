@@ -2,10 +2,9 @@ import { useState, Fragment } from "react";
 import CardModal from "../CardModal";
 import classes from "./Card.module.css";
 
-export default function Card({ cardTitle:initialCardTitle, listTitle }) {
+export default function Card({ cardId, cardTitle }) {
   const [showModal, setShowModal] = useState(false);
-  const [cardTitle, setCardTitle] = useState(initialCardTitle);
-  
+
   return (
     <Fragment>
       <div
@@ -23,9 +22,7 @@ export default function Card({ cardTitle:initialCardTitle, listTitle }) {
           setShowModal(false);
         }}
         showCloseButton
-        cardTitle={cardTitle}
-        listTitle ={listTitle}
-        cardTitleChangeHandler ={setCardTitle}
+        cardId={cardId}
       />
     </Fragment>
   );

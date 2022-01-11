@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./DescriptionComponent.module.css";
 import { IconContext } from "react-icons";
 import { MdOutlineDescription } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
+import { CardListContext } from "../../context/cardlist-context";
 
-export default function DescriptionComponent({
-  passedDescription = "This is a random description",
-}) {
-  const [description, setDescription] = useState(passedDescription);
+export default function DescriptionComponent({ cardId }) {
+  const { listOfCard, setCardDescription } = useContext(CardListContext);
+  const { description } = listOfCard.find((elem) => elem.id === cardId);
+  const setDescription = (value) => {
+    setCardDescription(cardId, value);
+  };
 
   const [isEditMode, setIsEditMode] = useState(false);
   return (
@@ -75,7 +78,7 @@ export default function DescriptionComponent({
                 type="button"
                 className={classes.descriptionEditorCloseButton}
                 onClick={() => {
-                  setDescription(passedDescription);
+                  setDescription(description);
                   setIsEditMode(false);
                 }}
               >

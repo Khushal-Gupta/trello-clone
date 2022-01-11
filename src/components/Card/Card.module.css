@@ -1,9 +1,13 @@
 .wrapper {
-    background-color: #eae2b7;
-    margin: 1rem 0rem;
-    padding: 0.5rem 0rem;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    overflow-wrap: break-word;
-    cursor: pointer;
+  background-color: #eae2b7;
+  margin-bottom:0.5rem;
+  padding: 0.5rem 0rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  overflow-wrap: break-word;
+  cursor: pointer;
+}
+
+.wrapper:hover {
+  background-color: white;
 }

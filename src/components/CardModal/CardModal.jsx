@@ -5,13 +5,7 @@ import DescriptionComponent from "./DescriptionComponent";
 import ActivityComponent from "./ActivityComponent";
 import SideActionsComponent from "./SideActionsComponent";
 
-export default function CardModal({
-  show,
-  onClose,
-  cardTitle,
-  listTitle,
-  cardTitleChangeHandler,
-}) {
+export default function CardModal({ show, onClose, cardId }) {
   return (
     <Modal
       show={show}
@@ -19,11 +13,7 @@ export default function CardModal({
       showCloseButton={true}
       passedModalClasses={classes.modalWrapperClasses}
     >
-      <TitleComponent
-        cardTitle={cardTitle}
-        listTitle={listTitle}
-        cardTitleChangeHandler={cardTitleChangeHandler}
-      />
+      <TitleComponent cardId={cardId} />
       <div
         style={{
           display: "flex",
@@ -37,8 +27,8 @@ export default function CardModal({
             flex: "3",
           }}
         >
-          <DescriptionComponent />
-          <ActivityComponent />
+          <DescriptionComponent cardId={cardId} />
+          <ActivityComponent cardId={cardId} />
         </div>
         <SideActionsComponent />
       </div>
