@@ -1,23 +1,24 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import classes from "./TitleComponent.module.css";
-import { MdTitle } from "react-icons/md";
 import clsx from "clsx";
+import { MdTitle } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
-import { IconContext } from "react-icons";
+
+import classes from "./TitleComponent.module.css";
 import { CardListContext } from "../../context/cardlist-context";
 
 export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const cardListContext = useContext(CardListContext);
-  const { setCardTitle, title: listTitle } = cardListContext;
-  const { title } = cardListContext.listOfCard.find(
-    (elem) => elem.id === cardId
-  );
+  const {
+    setCardTitle,
+    title: listTitle,
+    listOfCard,
+  } = useContext(CardListContext);
+
+  const { title } = listOfCard.find((card) => card.id === cardId);
 
   const textareaRef = useRef(null);
   const onBlurTitleFieldHandler = (event) => {
     const value = event.target.value;
-    console.log(value);
     if (value) {
       setCardTitle(cardId, value);
       setIsEditMode(false);
@@ -41,9 +42,7 @@ export default function TitleComponent({ cardId }) {
       <div
         className={clsx(classes.centerInsideContent, classes.titleIconWrapper)}
       >
-        <IconContext.Provider value={{ className: classes.iconStyle }}>
-          <MdTitle />
-        </IconContext.Provider>
+        <MdTitle className={classes.iconStyle} />
       </div>
       <div className={classes.titleDetailsWrapper}>
         <textarea
@@ -59,9 +58,7 @@ export default function TitleComponent({ cardId }) {
           }}
           onBlur={onBlurTitleFieldHandler}
           defaultValue={title}
-          onChange={(event) => {
-            handleAutoHeight();
-          }}
+          onChange={handleAutoHeight}
         />
         <div
           className={clsx(classes.lightTextClass, classes.listTitleRowWrapper)}
