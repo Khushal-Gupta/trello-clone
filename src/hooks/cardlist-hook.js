@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const useCardListHook = (id, givenTitle) => {
+export const useCardListHook = (givenTitle) => {
   const [listOfCard, setListOfcard] = useState([]);
   const [title, setTitle] = useState(givenTitle);
 
@@ -11,21 +11,17 @@ export const useCardListHook = (id, givenTitle) => {
       title: newCardTitle,
       description: "Add a more detailed description...",
       listOfComment: [],
+      order: listOfCard.length,
     };
     setListOfcard((prevList) => [...prevList, newCardObject]);
   };
 
   const setCardTitle = (cardId, newTitle) => {
-    setListOfcard((prevList) => {
-      const indexOfCard = prevList.findIndex((elem) => elem.id === cardId);
-      const newListofCard = [...prevList];
-      if (indexOfCard >= 0) {
-        const updatedCard = { ...prevList[indexOfCard] };
-        updatedCard.title = newTitle;
-        newListofCard[indexOfCard] = updatedCard;
-      }
-      return newListofCard;
-    });
+    setListOfcard((prevList) =>
+      prevList.map((card) =>
+        card.id === cardId ? { ...card, title: newTitle } : card
+      )
+    );
   };
 
   const setCardDescription = (cardId, newDescription) => {

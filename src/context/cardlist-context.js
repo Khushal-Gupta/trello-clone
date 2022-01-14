@@ -1,11 +1,11 @@
-import react from "react";
+import { createContext } from "react";
 
-export const CardListContext = react.createContext({
+export const CardListContext = createContext({
   id: null,
   title: null,
   listOfCard: [],
   setTitle: (newTitle) => {},
-  addCard:(newTitle)=>{},
+  addCard: (newTitle) => {},
   setCardTitle: (cardId, newTitle) => {},
   setCardDescription: (cardId, newDescription) => {},
   addCommentToCard: (cardId, comment, creatorName, createdAt) => {},
