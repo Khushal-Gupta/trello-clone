@@ -30,7 +30,7 @@ export default function ActivityComponent({ cardId }) {
         <div className={classes.activityHeader}>Activity</div>
       </div>
       <AddActivityItem key="add" onSave={addCommentHandler} />
-      {previousComments.map((elem, index) => (
+      {previousComments.map((elem) => (
         <PreviousActivityItem
           key={elem.id}
           comment={elem.comment}
@@ -88,14 +88,14 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
           </div>
         )}
         <div className={classes.previousActivityMainContentFooterWrapper}>
-          <label
+          <span
+            className={classes.previousActivityEditButton}
             onClick={() => {
               setIsEditingEnabled(true);
             }}
-            className={classes.previousActivityEditButton}
           >
             Edit
-          </label>
+          </span>
           <span className={classes.previousActivitySpacer}>-</span>
           <span className={classes.previousActivityDeleteButton}>Delete</span>
         </div>

@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import classes from "./DescriptionComponent.module.css";
 import { MdOutlineDescription } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
 import { CardListContext } from "../../context/cardlist-context";
+import AutoHeightTextarea from "../autoHeightTextarea";
 
 export default function DescriptionComponent({ cardId }) {
+  const textareaRef = useRef(null);
   const { listOfCard, setCardDescription } = useContext(CardListContext);
   const { description } = listOfCard.find((elem) => elem.id === cardId);
   const setDescription = (value) => {
@@ -52,11 +54,12 @@ export default function DescriptionComponent({ cardId }) {
               marginTop: "1rem",
             }}
           >
-            <textarea
+            <AutoHeightTextarea
+              ref={textareaRef}
               className={classes.descriptionTextarea}
               placeholder="Add a more detailed description"
-              onBlur={(event) => {
-                setDescription(event.target.value);
+              onBlur={(value) => {
+                setDescription(value);
               }}
               autoFocus
               defaultValue={description}

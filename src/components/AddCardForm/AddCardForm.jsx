@@ -1,11 +1,13 @@
 import clsx from "clsx";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import { CardListContext } from "../../context/cardlist-context";
+import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 import classes from "./AddCardForm.module.css";
 
 const AddCardForm = (props) => {
   const { showNewCardEditor, setShowNewCardEditor } = props;
   const [newCardTitle, setNewCardTitle] = useState("");
+  const textareaRef = useRef(null);
 
   const { addCard } = useContext(CardListContext);
 
@@ -17,8 +19,8 @@ const AddCardForm = (props) => {
     setNewCardTitle("");
     setShowNewCardEditor(true);
   };
-  const onChangeNewCardTitle = (event) => {
-    setNewCardTitle(event.target.value);
+  const onChangeNewCardTitle = (value) => {
+    setNewCardTitle(value);
   };
 
   const onCancelEditingNewCard = () => {
@@ -44,15 +46,15 @@ const AddCardForm = (props) => {
       </div>
       {showNewCardEditor && (
         <div>
-          <textarea
-            className={classes.addNewCardTextarea}
-            value={newCardTitle}
-            onChange={onChangeNewCardTitle}
+          <AutoHeightTextarea
+            ref={textareaRef}
             placeholder="Enter a title for this card.."
+            className={classes.addNewCardTextarea}
+            onChange={onChangeNewCardTitle}
+            value={newCardTitle}
             autoFocus
-            style={{ width: "100%", border: "none" }}
-            rows={3}
           />
+
           <div className={classes.editingModeWrapper}>
             <button
               type="button"

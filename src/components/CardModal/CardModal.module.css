@@ -1,6 +1,5 @@
 .modalWrapperClasses {
   border-radius: 5px;
-  box-sizing: border-box;
   position: relative;
   width: 80%;
   max-width: 48rem;
@@ -8,6 +7,7 @@
   padding: 1rem;
   height: fit-content;
   background-color: #f4f5f7;
+  display: flex;
+  flex-direction: column;
 }
 
-/* hsla(202,41.4%,80.6%,0.9); */

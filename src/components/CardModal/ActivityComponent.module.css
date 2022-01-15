@@ -1,7 +1,6 @@
 .activityWrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 .activityHeaderWrapper {
@@ -85,9 +84,6 @@
 }
 
 .activityItemCommentBoxWrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   margin-left: 0.5rem;
   background-color: white;
   border-radius: 3px;
@@ -98,15 +94,16 @@
 }
 
 .commentBoxTextarea {
+  width: 100%;
   border: none;
   background-color: white;
   padding: 0.4rem 0.5rem;
   border-radius: 3px;
-  width: 100%;
   font-family: inherit;
   font-size: 0.75rem;
   color: rgb(68, 68, 68);
   overflow-y: hidden;
+  overflow-wrap: break-word;
 }
 .commentBoxTextarea:focus {
   outline: none;

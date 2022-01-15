@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import Card from "../Card";
@@ -6,6 +6,7 @@ import classes from "./CardList.module.css";
 import { useCardListHook } from "../../hooks/cardlist-hook";
 import { CardListContext } from "../../context/cardlist-context";
 import AddCardForm from "../AddCardForm";
+import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 
 export default function CardList({ title: passedTitle, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
@@ -29,7 +30,6 @@ export default function CardList({ title: passedTitle, passedClasses }) {
     const outsideClickHandler = (event) => {
       if (taskListRef.current && !taskListRef.current.contains(event.target)) {
         setShowNewCardEditor(false);
-        // setNewCardTitle("");
       }
     };
     document.addEventListener("click", outsideClickHandler);
@@ -37,18 +37,6 @@ export default function CardList({ title: passedTitle, passedClasses }) {
       document.removeEventListener("click", outsideClickHandler);
     };
   }, []);
-
-  const handleAutoHeight = useCallback(() => {
-    if (titleTextareRef.current) {
-      titleTextareRef.current.style.height = "auto";
-      titleTextareRef.current.style.height =
-        titleTextareRef.current.scrollHeight + "px";
-    }
-  }, [titleTextareRef]);
-
-  useEffect(() => {
-    if (isTitleEditable) handleAutoHeight();
-  }, [isTitleEditable, handleAutoHeight]);
 
   return (
     <CardListContext.Provider
@@ -77,20 +65,17 @@ export default function CardList({ title: passedTitle, passedClasses }) {
         </div>
 
         {isTitleEditable && (
-          <textarea
+          <AutoHeightTextarea
             ref={titleTextareRef}
             className={clsx(classes.header, classes.headerEditable)}
-            rows={1}
             defaultValue={title}
-            onChange={handleAutoHeight}
             autoFocus
-            spellCheck={false}
-            onBlur={(event) => {
-              if (event.target.value) {
-                setTitle(event.target.value);
-              }
+            rows={1}
+            onBlur={(value) => {
+              setTitle(value);
               setIsTitleEditable(false);
             }}
+            spellCheck={false}
           />
         )}
 

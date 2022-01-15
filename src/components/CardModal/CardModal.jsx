@@ -24,12 +24,13 @@ export default function CardModal({ show, onClose, cardId }) {
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: "3",
+            flex: "3 0 0",
           }}
         >
           <DescriptionComponent cardId={cardId} />
           <ActivityComponent cardId={cardId} />
         </div>
+        
         <SideActionsComponent />
       </div>
     </Modal>

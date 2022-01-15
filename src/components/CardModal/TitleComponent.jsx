@@ -1,10 +1,11 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import clsx from "clsx";
 import { MdTitle } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
 
 import classes from "./TitleComponent.module.css";
 import { CardListContext } from "../../context/cardlist-context";
+import AutoHeightTextarea from "../autoHeightTextarea";
 
 export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -17,25 +18,12 @@ export default function TitleComponent({ cardId }) {
   const { title } = listOfCard.find((card) => card.id === cardId);
 
   const textareaRef = useRef(null);
-  const onBlurTitleFieldHandler = (event) => {
-    const value = event.target.value;
+  const onBlurTitleFieldHandler = (value) => {
     if (value) {
       setCardTitle(cardId, value);
       setIsEditMode(false);
     }
   };
-
-  const handleAutoHeight = useCallback(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height =
-        textareaRef.current.scrollHeight + "px";
-    }
-  }, [textareaRef]);
-
-  useEffect(() => {
-    handleAutoHeight();
-  }, [handleAutoHeight]);
 
   return (
     <div className={classes.titleWrapper}>
@@ -45,7 +33,7 @@ export default function TitleComponent({ cardId }) {
         <MdTitle className={classes.iconStyle} />
       </div>
       <div className={classes.titleDetailsWrapper}>
-        <textarea
+        <AutoHeightTextarea
           ref={textareaRef}
           className={clsx(
             isEditMode
@@ -53,12 +41,11 @@ export default function TitleComponent({ cardId }) {
               : classes.titleFieldNotEditMode
           )}
           rows="1"
-          onClick={() => {
+          onFocus={() => {
             setIsEditMode(true);
           }}
           onBlur={onBlurTitleFieldHandler}
           defaultValue={title}
-          onChange={handleAutoHeight}
         />
         <div
           className={clsx(classes.lightTextClass, classes.listTitleRowWrapper)}

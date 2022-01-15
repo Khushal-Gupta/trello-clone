@@ -29,7 +29,7 @@ export default function SideActionsComponent() {
   return (
     <div
       style={{
-        flex: "1",
+        flex: "1 0 0",
         marginLeft: "0.8rem",
       }}
     >
