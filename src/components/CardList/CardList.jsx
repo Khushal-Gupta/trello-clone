@@ -1,37 +1,35 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 import Card from "../Card";
 import classes from "./CardList.module.css";
+import { useCardListHook } from "../../hooks/cardlist-hook";
+import { CardListContext } from "../../context/cardlist-context";
+import AddCardForm from "../AddCardForm";
 
-export default function CardList({ title, passedClasses }) {
-  const [cardList, setCardList] = useState(["First Card"]);
+export default function CardList({ title: passedTitle, id, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
-  const [newCardTitle, setNewCardTitle] = useState("");
+
+  const [isTitleEditable, setIsTitleEditable] = useState(false);
+
   const taskListRef = useRef(null);
-
-  const addCardHandler = (event) => {
-    const value = newCardTitle;
-    if (value) {
-      setCardList((prev) => [...prev, value]);
-      setNewCardTitle("");
-    }
-    setShowNewCardEditor(true);
-  };
-  const onChangeNewCardTitle = (event) => {
-    setNewCardTitle(event.target.value);
-  };
-
-  const onCancelEditingNewCard = () => {
-    setShowNewCardEditor(false);
-    setNewCardTitle("");
-  };
+  const titleTextareRef = useRef(null);
+  const {
+    title,
+    listOfCard,
+    setTitle,
+    addCard,
+    setCardTitle,
+    setCardDescription,
+    addCommentToCard,
+    editComment,
+  } = useCardListHook(id, passedTitle);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {
       if (taskListRef.current && !taskListRef.current.contains(event.target)) {
         setShowNewCardEditor(false);
-        setNewCardTitle("");
+        // setNewCardTitle("");
       }
     };
     document.addEventListener("click", outsideClickHandler);
@@ -40,51 +38,73 @@ export default function CardList({ title, passedClasses }) {
     };
   }, []);
 
-  return (
-    <div className={clsx(classes.wrapper, passedClasses)} ref={taskListRef}>
-      <h3 className={classes.header}>{title}</h3>
-      <ul className={classes.cardList}>
-        {cardList.map((elem, index) => (
-          <Card cardTitle={elem} key={index} listTitle={title}/>
-        ))}
-      </ul>
-      {showNewCardEditor && (
-        <textarea
-          value={newCardTitle}
-          onChange={onChangeNewCardTitle}
-          placeholder="Enter Something...."
-          autoFocus
-          style={{ width: "100%", border: "none" }}
-          rows={3}
-        />
-      )}
-      <div
-        className={clsx(
-          classes.buttonWrapper,
-          showNewCardEditor && classes.hidden
-        )}
-      >
-        <button onClick={addCardHandler}>+ Add Card</button>
-      </div>
+  const handleAutoHeight = useCallback(() => {
+    if (titleTextareRef.current) {
+      titleTextareRef.current.style.height = "auto";
+      titleTextareRef.current.style.height =
+        titleTextareRef.current.scrollHeight + "px";
+    }
+  }, [titleTextareRef]);
 
-      {showNewCardEditor && (
-        <div className={classes.editingModeWrapper}>
-          <button
-            type="button"
-            className={classes.addButton}
-            onClick={addCardHandler}
-          >
-            + Add Card
-          </button>
-          <button
-            type="button"
-            className={classes.cancelButton}
-            onClick={onCancelEditingNewCard}
-          >
-            x
-          </button>
+  useEffect(() => {
+    if (isTitleEditable) handleAutoHeight();
+  }, [isTitleEditable, handleAutoHeight]);
+
+  return (
+    <CardListContext.Provider
+      value={{
+        title,
+        listOfCard,
+        addCard,
+        setCardTitle,
+        setCardDescription,
+        addCommentToCard,
+        editComment,
+      }}
+    >
+      <div className={clsx(classes.wrapper, passedClasses)} ref={taskListRef}>
+        <div
+          className={clsx(
+            classes.header,
+            classes.headerNotEditable,
+            isTitleEditable && classes.hidden
+          )}
+          onClick={() => {
+            setIsTitleEditable(true);
+          }}
+        >
+          {title}
         </div>
-      )}
-    </div>
+
+        {isTitleEditable && (
+          <textarea
+            ref={titleTextareRef}
+            className={clsx(classes.header, classes.headerEditable)}
+            rows={1}
+            defaultValue={title}
+            onChange={handleAutoHeight}
+            autoFocus
+            spellCheck={false}
+            onBlur={(event) => {
+              if (event.target.value) {
+                setTitle(event.target.value);
+              }
+              setIsTitleEditable(false);
+            }}
+          />
+        )}
+
+        <ul className={classes.listOfCardWrapper}>
+          {listOfCard.map((elem) => (
+            <Card cardId={elem.id} key={elem.id} cardTitle={elem.title} />
+          ))}
+        </ul>
+
+        <AddCardForm
+          showNewCardEditor={showNewCardEditor}
+          setShowNewCardEditor={setShowNewCardEditor}
+        />
+      </div>
+    </CardListContext.Provider>
   );
 }
