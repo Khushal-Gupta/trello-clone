@@ -1,8 +1,7 @@
-import classes from "./ActivityComponent.module.css";
-import { CgFeed } from "react-icons/cg";
-import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
 import clsx from "clsx";
+import { CgFeed } from "react-icons/cg";
+import classes from "./ActivityComponent.module.css";
 import CommentBox from "./CommentBox";
 import { CardListContext } from "../../context/cardlist-context";
 
@@ -25,9 +24,7 @@ export default function ActivityComponent({ cardId }) {
     <div className={classes.activityWrapper}>
       <div className={classes.activityHeaderWrapper}>
         <div className={classes.iconWrapper}>
-          <IconContext.Provider value={{ className: classes.iconStyle }}>
-            <CgFeed />
-          </IconContext.Provider>
+          <CgFeed className={classes.iconStyle} />
         </div>
         <div className={classes.activityHeader}>Activity</div>
       </div>
@@ -85,9 +82,7 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
             }}
           />
         ) : (
-          <div className={classes.activityItemCommentBoxWrapper}>
-            <div className={classes.commentBoxTextarea}>{comment}</div>
-          </div>
+          <div className={classes.commentBoxTextarea}>{comment}</div>
         )}
         <div className={classes.previousActivityMainContentFooterWrapper}>
           <label
@@ -113,6 +108,7 @@ const ImagePlaceholder = () => {
         classes.centerInsideContent,
         classes.activityItemImagePlaceholder
       )}
+      style={{ flex: "none" }}
     >
       KG
     </div>

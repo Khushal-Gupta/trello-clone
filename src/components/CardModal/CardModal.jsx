@@ -14,17 +14,13 @@ export default function CardModal({ show, onClose, cardId }) {
       passedModalClasses={classes.modalWrapperClasses}
     >
       <TitleComponent cardId={cardId} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
+      <div style={{ display: "flex" }}>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: "3",
+            width: "67%",
+            flex: "none",
           }}
         >
           <DescriptionComponent cardId={cardId} />
