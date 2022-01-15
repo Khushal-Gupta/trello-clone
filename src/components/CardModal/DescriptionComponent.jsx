@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import classes from "./DescriptionComponent.module.css";
-import { IconContext } from "react-icons";
 import { MdOutlineDescription } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
@@ -23,9 +22,7 @@ export default function DescriptionComponent({ cardId }) {
             classes.descriptionIconWrapper
           )}
         >
-          <IconContext.Provider value={{ className: classes.iconStyle }}>
-            <MdOutlineDescription />
-          </IconContext.Provider>
+          <MdOutlineDescription className={classes.iconStyle} />
         </div>
 
         <div className={classes.descriptionHeader}>Description</div>
@@ -82,9 +79,7 @@ export default function DescriptionComponent({ cardId }) {
                   setIsEditMode(false);
                 }}
               >
-                <IconContext.Provider value={{ className: classes.iconStyle }}>
-                  <VscClose />
-                </IconContext.Provider>
+                <VscClose className={classes.iconStyle} />
               </button>
             </div>
           </div>

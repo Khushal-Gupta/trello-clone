@@ -1,9 +1,9 @@
-import classes from "./ActivityComponent.module.css";
 import { CgFeed } from "react-icons/cg";
-import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
 import clsx from "clsx";
+
 import CommentBox from "./CommentBox";
+import classes from "./ActivityComponent.module.css";
 import { CardListContext } from "../../context/cardlist-context";
 
 export default function ActivityComponent({ cardId }) {
@@ -25,9 +25,7 @@ export default function ActivityComponent({ cardId }) {
     <div className={classes.activityWrapper}>
       <div className={classes.activityHeaderWrapper}>
         <div className={classes.iconWrapper}>
-          <IconContext.Provider value={{ className: classes.iconStyle }}>
-            <CgFeed />
-          </IconContext.Provider>
+          <CgFeed className={classes.iconStyle} />
         </div>
         <div className={classes.activityHeader}>Activity</div>
       </div>
