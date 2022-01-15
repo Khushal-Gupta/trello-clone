@@ -7,7 +7,7 @@ import { useCardListHook } from "../../hooks/cardlist-hook";
 import { CardListContext } from "../../context/cardlist-context";
 import AddCardForm from "../AddCardForm";
 
-export default function CardList({ title: passedTitle, id, passedClasses }) {
+export default function CardList({ title: passedTitle, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
 
   const [isTitleEditable, setIsTitleEditable] = useState(false);
@@ -23,7 +23,7 @@ export default function CardList({ title: passedTitle, id, passedClasses }) {
     setCardDescription,
     addCommentToCard,
     editComment,
-  } = useCardListHook(id, passedTitle);
+  } = useCardListHook(passedTitle);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import AddCardListButton from "../components/AddCardListButton";
 import CardList from "../components/CardList";
 import classes from "./ProjectCardList.module.css";
-import { v4 as uuidv4 } from "uuid";
 
 export default function ProjectCardList() {
   const [listOfCardList, setListOfCardList] = useState([
@@ -17,21 +17,21 @@ export default function ProjectCardList() {
       { id: uuidv4(), title: newCardList },
     ]);
   };
-  // console.log(listOfCardList);
-  const elems = listOfCardList.map((elem) => (
-    <CardList
-      key={elem.id}
-      title={elem.title}
-      passedClasses={classes.childStyles}
-    />
-  ));
 
-  elems.push(
-    <AddCardListButton
-      onAdd={onAddCardListHandler}
-      key="addProjectCardButton"
-      passedClasses={classes.childStyles}
-    />
+  return (
+    <div className={classes.wrapper}>
+      {listOfCardList.map((elem) => (
+        <CardList
+          key={elem.id}
+          title={elem.title}
+          passedClasses={classes.childStyles}
+        />
+      ))}
+      <AddCardListButton
+        onAdd={onAddCardListHandler}
+        key="addProjectCardButton"
+        passedClasses={classes.childStyles}
+      />
+    </div>
   );
-  return <div className={classes.wrapper}>{elems}</div>;
 }
