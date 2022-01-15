@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import CardModal from "../CardModal";
 import classes from "./Card.module.css";
 
@@ -6,7 +6,7 @@ export default function Card({ cardId, cardTitle }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <div
         className={classes.wrapper}
         onClick={() => {
@@ -24,6 +24,6 @@ export default function Card({ cardId, cardTitle }) {
         showCloseButton
         cardId={cardId}
       />
-    </Fragment>
+    </>
   );
 }
