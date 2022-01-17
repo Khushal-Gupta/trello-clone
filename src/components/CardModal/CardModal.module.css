@@ -1,7 +1,7 @@
 .modalWrapperClasses {
   border-radius: 5px;
   position: relative;
-  width: 80%;
+  width: 90%;
   max-width: 48rem;
   margin: 2rem 0rem;
   padding: 1rem;
@@ -11,3 +11,13 @@
   flex-direction: column;
 }
 
+.activityAndDescriptionWrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  overflow: hidden;
+}
+
+.cardDetailWrapper{
+  display: flex;
+}

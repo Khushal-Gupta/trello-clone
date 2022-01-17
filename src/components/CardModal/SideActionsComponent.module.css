@@ -4,6 +4,11 @@
   justify-content: center;
 }
 
+.wrapper {
+  flex: 1;
+  margin-left: 0.8rem;
+}
+
 .heading {
   font-size: 0.8rem;
   font-weight: 600;
@@ -11,7 +16,7 @@
   margin-top: 0.5rem;
 }
 .cardActionItemWrapper {
-  color: #172b4d;;
+  color: #172b4d;
   display: flex;
   align-items: center;
   border-radius: 3px;

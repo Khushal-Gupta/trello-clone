@@ -83,9 +83,7 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
             }}
           />
         ) : (
-          <div className={classes.activityItemCommentBoxWrapper}>
-            <div className={classes.commentBoxTextarea}>{comment}</div>
-          </div>
+          <div className={classes.commentBox}>{comment}</div>
         )}
         <div className={classes.previousActivityMainContentFooterWrapper}>
           <span

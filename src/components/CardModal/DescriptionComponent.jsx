@@ -48,12 +48,7 @@ export default function DescriptionComponent({ cardId }) {
           </div>
         )}
         {isEditMode && (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "1rem",
-            }}
-          >
+          <div className={classes.descriptionEditModeWrapper}>
             <AutoHeightTextarea
               ref={textareaRef}
               className={classes.descriptionTextarea}

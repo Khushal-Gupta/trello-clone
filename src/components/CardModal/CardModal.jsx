@@ -14,23 +14,12 @@ export default function CardModal({ show, onClose, cardId }) {
       passedModalClasses={classes.modalWrapperClasses}
     >
       <TitleComponent cardId={cardId} />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: "3 0 0",
-          }}
-        >
+      <div className={classes.cardDetailWrapper}>
+        <div className={classes.activityAndDescriptionWrapper}>
           <DescriptionComponent cardId={cardId} />
           <ActivityComponent cardId={cardId} />
         </div>
-        
+
         <SideActionsComponent />
       </div>
     </Modal>
