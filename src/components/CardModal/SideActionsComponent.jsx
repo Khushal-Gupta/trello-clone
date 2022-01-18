@@ -27,12 +27,7 @@ export default function SideActionsComponent() {
     { icon: <AiOutlineEye />, label: "Watch" },
   ];
   return (
-    <div
-      style={{
-        flex: "1",
-        marginLeft: "0.8rem",
-      }}
-    >
+    <div className={classes.wrapper}>
       <div className={classes.heading}>Add to Card</div>
       {addToCardActionItems.map((elem, index) => (
         <CardActionItem

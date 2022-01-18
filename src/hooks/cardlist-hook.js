@@ -25,57 +25,38 @@ export const useCardListHook = (givenTitle) => {
   };
 
   const setCardDescription = (cardId, newDescription) => {
-    setListOfcard((prevList) => {
-      const indexOfCard = prevList.findIndex((elem) => elem.id === cardId);
-      const newListofCard = [...prevList];
-      if (indexOfCard >= 0) {
-        const updatedCard = { ...prevList[indexOfCard] };
-        updatedCard.description = newDescription;
-        newListofCard[indexOfCard] = updatedCard;
-      }
-      return newListofCard;
-    });
+    setListOfcard((prevList) =>
+      prevList.map((card) =>
+        card.id === cardId ? { ...card, description: newDescription } : card
+      )
+    );
   };
 
   const addCommentToCard = (cardId, comment, creatorName, createdAt) => {
-    setListOfcard((prevList) => {
-      const indexOfCard = prevList.findIndex((elem) => elem.id === cardId);
-      const newListofCard = [...prevList];
-      if (indexOfCard >= 0) {
-        const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
-        const updatedCard = { ...prevList[indexOfCard] };
-        updatedCard.listOfComment = [
-          commentObject,
-          ...updatedCard.listOfComment,
-        ];
-        newListofCard[indexOfCard] = updatedCard;
-      }
-      return newListofCard;
-    });
+    const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
+    setListOfcard((prevList) =>
+      prevList.map((card) =>
+        card.id === cardId
+          ? { ...card, listOfComment: [commentObject, ...card.listOfComment] }
+          : card
+      )
+    );
   };
 
   const editComment = (cardId, commentId, newComment, updatedAt) => {
     setListOfcard((prevList) => {
-      const indexOfCard = prevList.findIndex((elem) => elem.id === cardId);
-      const newListofCard = [...prevList];
-      if (indexOfCard >= 0) {
-        const listOfComment = [...prevList[indexOfCard].listOfComment];
-        const indexOfComment = listOfComment.findIndex(
-          (elem) => elem.id === commentId
-        );
-        if (indexOfComment >= 0) {
-          const commentObject = {
-            ...listOfComment[indexOfComment],
-            comment: newComment,
-            updatedAt,
+      return prevList.map((card) => {
+        if (cardId === card.id) {
+          return {
+            ...card,
+            listOfComment: card.listOfComment.map((commentObj) =>
+              commentObj.id === commentId
+                ? { ...commentObj, comment: newComment, updatedAt: updatedAt }
+                : commentObj
+            ),
           };
-          listOfComment[indexOfComment] = commentObject;
-          const updatedCard = { ...prevList[indexOfCard], listOfComment };
-
-          newListofCard[indexOfCard] = updatedCard;
-        }
-      }
-      return newListofCard;
+        } else return card;
+      });
     });
   };
   return {

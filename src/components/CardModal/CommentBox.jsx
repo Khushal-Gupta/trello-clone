@@ -1,13 +1,14 @@
 import classes from "./CommentBox.module.css";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 import { RiAttachment2 } from "react-icons/ri";
 import { GoMention } from "react-icons/go";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { BsCreditCard2Back } from "react-icons/bs";
 import { IconContext } from "react-icons";
+import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 
-const CommentBox = ({ passedComment, onSave, onClose, type, id }) => {
+const CommentBox = ({ passedComment, onSave, onClose, type }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [comment, setComment] = useState(passedComment || "");
   const commentBoxRef = useRef(null);
@@ -19,17 +20,17 @@ const CommentBox = ({ passedComment, onSave, onClose, type, id }) => {
     <BsCreditCard2Back />,
   ];
 
-  const handleAutoHeight = useCallback(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height =
-        textareaRef.current.scrollHeight + "px";
-    }
-  }, [textareaRef]);
+  // const handleAutoHeight = useCallback(() => {
+  //   if (textareaRef.current) {
+  //     textareaRef.current.style.height = "auto";
+  //     textareaRef.current.style.height =
+  //       textareaRef.current.scrollHeight + "px";
+  //   }
+  // }, [textareaRef]);
 
-  useEffect(() => {
-    handleAutoHeight();
-  }, [handleAutoHeight]);
+  // useEffect(() => {
+  //   handleAutoHeight();
+  // }, [handleAutoHeight]);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {
@@ -48,8 +49,7 @@ const CommentBox = ({ passedComment, onSave, onClose, type, id }) => {
 
   return (
     <div className={classes.activityItemCommentBoxWrapper} ref={commentBoxRef}>
-      <textarea
-        id={id}
+      <AutoHeightTextarea
         ref={textareaRef}
         placeholder="Write a comment...."
         className={classes.commentBoxTextarea}
@@ -57,9 +57,8 @@ const CommentBox = ({ passedComment, onSave, onClose, type, id }) => {
         onFocus={() => {
           setIsEditMode(true);
         }}
-        onChange={(event) => {
-          handleAutoHeight();
-          setComment(event.target.value);
+        onChange={(value) => {
+          setComment(value);
         }}
         value={comment}
         autoFocus={type === "edit"}

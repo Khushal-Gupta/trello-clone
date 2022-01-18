@@ -1,9 +1,9 @@
-import classes from "./ActivityComponent.module.css";
 import { CgFeed } from "react-icons/cg";
-import { IconContext } from "react-icons";
 import { useContext, useState } from "react";
 import clsx from "clsx";
+
 import CommentBox from "./CommentBox";
+import classes from "./ActivityComponent.module.css";
 import { CardListContext } from "../../context/cardlist-context";
 
 export default function ActivityComponent({ cardId }) {
@@ -25,14 +25,12 @@ export default function ActivityComponent({ cardId }) {
     <div className={classes.activityWrapper}>
       <div className={classes.activityHeaderWrapper}>
         <div className={classes.iconWrapper}>
-          <IconContext.Provider value={{ className: classes.iconStyle }}>
-            <CgFeed />
-          </IconContext.Provider>
+          <CgFeed className={classes.iconStyle} />
         </div>
         <div className={classes.activityHeader}>Activity</div>
       </div>
       <AddActivityItem key="add" onSave={addCommentHandler} />
-      {previousComments.map((elem, index) => (
+      {previousComments.map((elem) => (
         <PreviousActivityItem
           key={elem.id}
           comment={elem.comment}
@@ -85,19 +83,17 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
             }}
           />
         ) : (
-          <div className={classes.activityItemCommentBoxWrapper}>
-            <div className={classes.commentBoxTextarea}>{comment}</div>
-          </div>
+          <div className={classes.commentBox}>{comment}</div>
         )}
         <div className={classes.previousActivityMainContentFooterWrapper}>
-          <label
+          <span
+            className={classes.previousActivityEditButton}
             onClick={() => {
               setIsEditingEnabled(true);
             }}
-            className={classes.previousActivityEditButton}
           >
             Edit
-          </label>
+          </span>
           <span className={classes.previousActivitySpacer}>-</span>
           <span className={classes.previousActivityDeleteButton}>Delete</span>
         </div>
