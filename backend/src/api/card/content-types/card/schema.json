@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cards",
+  "info": {
+    "singularName": "card",
+    "pluralName": "cards",
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "card"
+    },
+    "description": {
+      "type": "text"
+    },
+    "cardlist": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cardlist.cardlist",
+      "inversedBy": "cards"
+    }
+  }
+}
