@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cardlists",
+  "info": {
+    "singularName": "cardlist",
+    "pluralName": "cardlists",
+    "displayName": "Cardlist",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "cards": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card",
+      "mappedBy": "cardlist"
+    }
+  }
+}
