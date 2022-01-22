@@ -10,11 +10,9 @@ import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 
 export default function CardList({ title: passedTitle, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
-
   const [isTitleEditable, setIsTitleEditable] = useState(false);
-
   const taskListRef = useRef(null);
-  const titleTextareRef = useRef(null);
+
   const {
     title,
     listOfCard,
@@ -64,9 +62,8 @@ export default function CardList({ title: passedTitle, passedClasses }) {
           {title}
         </div>
 
-        {isTitleEditable && (
+        {isTitleEditable ? (
           <AutoHeightTextarea
-            ref={titleTextareRef}
             className={clsx(classes.header, classes.headerEditable)}
             defaultValue={title}
             autoFocus
@@ -75,15 +72,14 @@ export default function CardList({ title: passedTitle, passedClasses }) {
               setTitle(value);
               setIsTitleEditable(false);
             }}
-            spellCheck={false}
           />
-        )}
+        ) : null}
 
-        <ul className={classes.listOfCardWrapper}>
+        <div className={classes.listOfCardWrapper}>
           {listOfCard.map((elem) => (
             <Card cardId={elem.id} key={elem.id} cardTitle={elem.title} />
           ))}
-        </ul>
+        </div>
 
         <AddCardForm
           showNewCardEditor={showNewCardEditor}

@@ -4,8 +4,7 @@ import { CardListContext } from "../../context/cardlist-context";
 import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 import classes from "./AddCardForm.module.css";
 
-const AddCardForm = (props) => {
-  const { showNewCardEditor, setShowNewCardEditor } = props;
+const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
   const [newCardTitle, setNewCardTitle] = useState("");
   const textareaRef = useRef(null);
 

@@ -4,22 +4,23 @@ import { forwardRef, useCallback, useEffect } from "react";
 import classes from "./AutoHeightTextarea.module.css";
 
 const AutoHeightTextarea = (
-  { id,
+  {
+    id,
     className,
     onChange,
     onBlur,
     onFocus,
     defaultValue,
     placeholder,
-    autoFocus,
+    autoFocus = false,
     value,
     rows,
-    spellCheck
+    spellCheck = false,
   },
   ref
 ) => {
   const handleAutoHeight = useCallback(() => {
-    if (ref.current) {
+    if (ref?.current) {
       ref.current.style.height = "auto";
       ref.current.style.height = ref.current.scrollHeight + "px";
     }
@@ -36,11 +37,10 @@ const AutoHeightTextarea = (
       onChange={(event) => {
         const value = event.target.value;
         handleAutoHeight();
-        onChange(value);
+        onChange?.(value);
       }}
       onBlur={(event) => {
-        const value = event.target.value;
-        onBlur(value);
+        onBlur?.(event.target.value);
       }}
       rows={rows}
       onFocus={onFocus}
