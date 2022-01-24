@@ -85,18 +85,20 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
         ) : (
           <div className={classes.commentBox}>{comment}</div>
         )}
-        <div className={classes.previousActivityMainContentFooterWrapper}>
-          <span
-            className={classes.previousActivityEditButton}
-            onClick={() => {
-              setIsEditingEnabled(true);
-            }}
-          >
-            Edit
-          </span>
-          <span className={classes.previousActivitySpacer}>-</span>
-          <span className={classes.previousActivityDeleteButton}>Delete</span>
-        </div>
+        {!isEditingEnabled ? (
+          <div className={classes.previousActivityMainContentFooterWrapper}>
+            <span
+              className={classes.previousActivityEditButton}
+              onClick={() => {
+                setIsEditingEnabled(true);
+              }}
+            >
+              Edit
+            </span>
+            <span className={classes.previousActivitySpacer}>-</span>
+            <span className={classes.previousActivityDeleteButton}>Delete</span>
+          </div>
+        ) : null}
       </div>
     </div>
   );
