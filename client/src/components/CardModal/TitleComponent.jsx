@@ -50,22 +50,16 @@ export default function TitleComponent({ cardId }) {
         <div
           className={clsx(classes.lightTextClass, classes.listTitleRowWrapper)}
         >
-          <div>
-            {"in list "}
+          <div className={classes.listTitleInlineWrapper}>
+            {"in list"}
             <span
               className={clsx(classes.lightTextClass, classes.listTitleButton)}
             >
               {listTitle}
             </span>
           </div>
-          <div
-            className={clsx(
-              classes.outlineEyeWrapper,
-              classes.centerInsideContent
-            )}
-          >
-            <AiOutlineEye />
-          </div>
+
+          <AiOutlineEye className={clsx(classes.outlineEyeWrapper)} />
         </div>
       </div>
     </div>

@@ -1,68 +1,73 @@
 .notEditingWrapper {
-  background-color: rgba(255, 255, 255, 0.795);
-  border: none;
+  background-color: white;
   border-radius: 5px;
   padding: 0.5rem 0.5rem;
   height: fit-content;
-  min-width: 150px;
+  width: 250px;
+  flex: none;
+  color: rgb(33, 43, 54);
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 700;
   padding: 1rem 0rem;
+  border: 1px solid rgba(145, 158, 171, 0.32);
 }
 
-.notEditingWrapper:hover{
-  background-color: white;
+.notEditingWrapper:hover {
+  background-color: rgba(145, 158, 171, 0.08);
 }
-
 
 .editingModeWrapper {
-  background-color: rgba(255, 255, 255, 0.795);
-  border: none;
+  border: 1px solid rgba(145, 158, 171, 0.32);
+  background-color: rgba(145, 158, 171, 0.08);
+  padding: 1rem 1rem;
   border-radius: 5px;
-  padding: 0.5rem 0.5rem;
   height: fit-content;
-  min-width: 150px;
+  width: 250px;
+  flex: none;
 }
 
-.editingModeWrapper input{
-  border:none;
+.editingModeWrapper input {
+  border: none;
   width: 100%;
   margin-bottom: 1rem;
-  padding: 0.3rem;
+  padding: 0.7rem 0.5rem;
   box-sizing: border-box;
   border-radius: 3px;
+  font-family: inherit;
 }
-.editingModeWrapper input:focus{
+.editingModeWrapper input:focus {
   outline: none;
 }
 
-.addButton{
-  border:none;
+.addButton {
+  border: none;
   color: white;
-  padding: 0.4rem 0.6rem;
-  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 3px;
   background-color: rgb(124, 124, 255);
 }
 
-.addButton:hover{
+.addButton:hover {
   background-color: blue;
 }
 
 .cancelButton {
   background-color: transparent;
-  border:none;
+  border: none;
   padding: 0;
   margin: 0;
   font-size: 1rem;
-  margin-left: 1rem;
+  margin-left: 2rem;
   color: rgb(75, 75, 75);
 }
 
-.cancelButton:hover{
+.cancelButton:hover {
   color: black;
 }
 
-.buttonWrapper{
+.buttonWrapper {
   display: flex;
   justify-content: flex-start;
 }

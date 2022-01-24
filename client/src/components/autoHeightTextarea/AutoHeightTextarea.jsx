@@ -26,8 +26,11 @@ const AutoHeightTextarea = (
     }
   }, [ref]);
   useEffect(() => {
+    if (ref?.current) {
+      ref.current.selectionStart = ref.current.value.length;
+    }
     handleAutoHeight();
-  }, [handleAutoHeight]);
+  }, [handleAutoHeight, ref]);
 
   return (
     <textarea

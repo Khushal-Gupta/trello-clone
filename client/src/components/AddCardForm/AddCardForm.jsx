@@ -1,5 +1,8 @@
 import clsx from "clsx";
 import { Fragment, useContext, useRef, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { VscAdd as AddIcon } from "react-icons/vsc";
+
 import { CardListContext } from "../../context/cardlist-context";
 import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 import classes from "./AddCardForm.module.css";
@@ -28,21 +31,20 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
   };
   return (
     <Fragment>
-      <div
+      <button
         className={clsx(
           classes.buttonWrapper,
           showNewCardEditor && classes.hidden
         )}
+        onClick={() => {
+          setNewCardTitle("");
+          setShowNewCardEditor(true);
+        }}
       >
-        <button
-          onClick={() => {
-            setNewCardTitle("");
-            setShowNewCardEditor(true);
-          }}
-        >
-          + Add Card
-        </button>
-      </div>
+        <AddIcon />
+        <div className={classes.addCardLabel}>Add Card</div>
+      </button>
+
       {showNewCardEditor && (
         <div>
           <AutoHeightTextarea
@@ -60,14 +62,15 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
               className={classes.addButton}
               onClick={addCardHandler}
             >
-              + Add Card
+              <AddIcon />
+              <div className={classes.addCardLabel}>Add Card</div>
             </button>
             <button
               type="button"
               className={classes.cancelButton}
               onClick={onCancelEditingNewCard}
             >
-              x
+              <AiOutlineClose />
             </button>
           </div>
         </div>
