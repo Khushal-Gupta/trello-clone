@@ -3,7 +3,7 @@ import { Fragment, useContext, useRef, useState } from "react";
 import { VscAdd as AddIcon } from "react-icons/vsc";
 
 import { CardListContext } from "../../context/cardlist-context";
-import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
+import AutoHeightTextarea from "../AutoHeightTextarea/AutoHeightTextarea";
 import classes from "./AddCardForm.module.css";
 
 const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {

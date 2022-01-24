@@ -2,9 +2,9 @@ import { CgFeed } from "react-icons/cg";
 import { useContext, useState } from "react";
 import clsx from "clsx";
 
-import CommentBox from "./CommentBox";
+import CommentBox from "../CommentBox";
 import classes from "./ActivityComponent.module.css";
-import { CardListContext } from "../../context/cardlist-context";
+import { CardListContext } from "../../../context/cardlist-context";
 
 export default function ActivityComponent({ cardId }) {
   const { addCommentToCard, listOfCard } = useContext(CardListContext);
