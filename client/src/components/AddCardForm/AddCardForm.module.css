@@ -1,9 +1,19 @@
-.buttonWrapper{
+.addCardLabel {
+  margin-left: 0.5rem;
+}
+
+.editingModeWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.addButton {
   border: none;
   width: 100%;
   background-color: transparent;
   color: rgb(33, 43, 54);
-  padding: 0.7rem 0.5rem;
+  padding: 0.7rem 0rem;
   font-size: 1rem;
   font-weight: 700;
   border-radius: 8px;
@@ -13,31 +23,9 @@
   align-items: center;
 }
 
-.addCardLabel{
-  margin-left: 0.5rem;
-}
-
-.buttonWrapper:hover {
-  background-color: rgba(145, 158, 171, 0.08)
-}
-
-.editingModeWrapper {
-  margin: 0.7rem 0rem;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.addButton {
-  border: none;
-  padding: 0.7rem 1.5rem;
-  background-color: rgb(106, 106, 241);
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
+.addButton:hover,
+.addButton:active {
+  background-color: rgba(145, 158, 171, 0.08);
 }
 
 .cancelButton {
@@ -65,6 +53,7 @@
   border-radius: 8px;
   width: 100%;
   min-height: 60px;
+  margin-bottom: 1rem;
 }
 .addNewCardTextarea:focus,
 .addNewCardTextarea:active {

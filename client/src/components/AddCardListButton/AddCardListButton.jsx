@@ -58,7 +58,13 @@ export default function AddCardListButton({ onAdd, passedClasses }) {
       className={clsx(classes.editingModeWrapper, passedClasses)}
       ref={inputFormRef}
     >
-      <input type="text" value={newListTitle} onChange={onChangeTitleHandler} />
+      <input
+        type="text"
+        value={newListTitle}
+        onChange={onChangeTitleHandler}
+        autoFocus
+        spellCheck="false"
+      />
       <div className={classes.buttonWrapper}>
         <button
           type="button"
@@ -72,7 +78,7 @@ export default function AddCardListButton({ onAdd, passedClasses }) {
           className={classes.cancelButton}
           onClick={onCancel}
         >
-          <AiOutlineClose/>
+          <AiOutlineClose />
         </button>
       </div>
     </div>

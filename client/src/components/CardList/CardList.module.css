@@ -4,6 +4,7 @@
   border-radius: 5px;
   width: 250px;
   flex: none;
+  cursor: grab;
   padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;

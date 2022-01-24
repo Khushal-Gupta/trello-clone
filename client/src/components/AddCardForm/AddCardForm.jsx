@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { Fragment, useContext, useRef, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { VscAdd as AddIcon } from "react-icons/vsc";
 
 import { CardListContext } from "../../context/cardlist-context";
@@ -13,7 +12,7 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
 
   const { addCard } = useContext(CardListContext);
 
-  const addCardHandler = (event) => {
+  const addCardHandler = () => {
     const value = newCardTitle;
     if (value) {
       addCard(value);
@@ -25,15 +24,11 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
     setNewCardTitle(value);
   };
 
-  const onCancelEditingNewCard = () => {
-    setShowNewCardEditor(false);
-    setNewCardTitle("");
-  };
   return (
     <Fragment>
       <button
         className={clsx(
-          classes.buttonWrapper,
+          classes.addButton,
           showNewCardEditor && classes.hidden
         )}
         onClick={() => {
@@ -64,13 +59,6 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
             >
               <AddIcon />
               <div className={classes.addCardLabel}>Add Card</div>
-            </button>
-            <button
-              type="button"
-              className={classes.cancelButton}
-              onClick={onCancelEditingNewCard}
-            >
-              <AiOutlineClose />
             </button>
           </div>
         </div>
