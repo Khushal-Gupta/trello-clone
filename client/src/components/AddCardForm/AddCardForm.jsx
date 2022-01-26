@@ -3,7 +3,7 @@ import { Fragment, useContext, useRef, useState } from "react";
 import { VscAdd as AddIcon } from "react-icons/vsc";
 
 import { CardListContext } from "../../context/cardlist-context";
-import AutoHeightTextarea from "../AutoHeightTextarea/AutoHeightTextarea";
+import AutoHeightTextarea from "../AutoHeightTextarea";
 import classes from "./AddCardForm.module.css";
 
 const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
@@ -27,10 +27,7 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
   return (
     <Fragment>
       <button
-        className={clsx(
-          classes.addButton,
-          showNewCardEditor && classes.hidden
-        )}
+        className={clsx(classes.addButton, showNewCardEditor && classes.hidden)}
         onClick={() => {
           setNewCardTitle("");
           setShowNewCardEditor(true);
