@@ -1,5 +1,5 @@
 import classes from "./CommentBox.module.css";
-import AutoHeightTextarea from "../../AutoHeightTextarea";
+import AutoHeightTextarea from "../../TextArea";
 
 import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";

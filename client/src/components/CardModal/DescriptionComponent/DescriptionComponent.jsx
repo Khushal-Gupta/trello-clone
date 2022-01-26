@@ -4,7 +4,7 @@ import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
 
 import { CardListContext } from "../../../context/cardlist-context";
-import AutoHeightTextarea from "../../AutoHeightTextarea";
+import AutoHeightTextarea from "../../TextArea";
 import classes from "./DescriptionComponent.module.css";
 
 export default function DescriptionComponent({ cardId }) {

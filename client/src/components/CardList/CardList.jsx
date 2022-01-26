@@ -6,7 +6,7 @@ import classes from "./CardList.module.css";
 import { useCardListHook } from "../../hooks/cardlist-hook";
 import { CardListContext } from "../../context/cardlist-context";
 import AddCardForm from "../AddCardForm";
-import AutoHeightTextarea from "../AutoHeightTextarea";
+import AutoHeightTextarea from "../TextArea";
 
 export default function CardList({ title: passedTitle, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);

@@ -5,7 +5,7 @@ import { AiOutlineEye } from "react-icons/ai";
 
 import classes from "./TitleComponent.module.css";
 import { CardListContext } from "../../../context/cardlist-context";
-import AutoHeightTextarea from "../../AutoHeightTextarea";
+import AutoHeightTextarea from "../../TextArea";
 
 export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
