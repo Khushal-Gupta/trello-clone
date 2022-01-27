@@ -6,13 +6,13 @@ import classes from "./CardList.module.css";
 import { useCardListHook } from "../../hooks/cardlist-hook";
 import { CardListContext } from "../../context/cardlist-context";
 import AddCardForm from "../AddCardForm";
-import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
+import AutoHeightTextarea from "../TextArea";
 
 export default function CardList({ title: passedTitle, passedClasses }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
   const [isTitleEditable, setIsTitleEditable] = useState(false);
   const taskListRef = useRef(null);
-
+  const titleRef = useRef(null);
   const {
     title,
     listOfCard,
@@ -64,6 +64,7 @@ export default function CardList({ title: passedTitle, passedClasses }) {
 
         {isTitleEditable ? (
           <AutoHeightTextarea
+            ref={titleRef}
             className={clsx(classes.header, classes.headerEditable)}
             defaultValue={title}
             autoFocus

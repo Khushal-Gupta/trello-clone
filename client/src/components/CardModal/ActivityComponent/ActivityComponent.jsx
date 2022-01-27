@@ -2,9 +2,9 @@ import { CgFeed } from "react-icons/cg";
 import { useContext, useState } from "react";
 import clsx from "clsx";
 
-import CommentBox from "./CommentBox";
+import CommentBox from "../CommentBox";
 import classes from "./ActivityComponent.module.css";
-import { CardListContext } from "../../context/cardlist-context";
+import { CardListContext } from "../../../context/cardlist-context";
 
 export default function ActivityComponent({ cardId }) {
   const { addCommentToCard, listOfCard } = useContext(CardListContext);
@@ -85,18 +85,20 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
         ) : (
           <div className={classes.commentBox}>{comment}</div>
         )}
-        <div className={classes.previousActivityMainContentFooterWrapper}>
-          <span
-            className={classes.previousActivityEditButton}
-            onClick={() => {
-              setIsEditingEnabled(true);
-            }}
-          >
-            Edit
-          </span>
-          <span className={classes.previousActivitySpacer}>-</span>
-          <span className={classes.previousActivityDeleteButton}>Delete</span>
-        </div>
+        {!isEditingEnabled ? (
+          <div className={classes.previousActivityMainContentFooterWrapper}>
+            <span
+              className={classes.previousActivityEditButton}
+              onClick={() => {
+                setIsEditingEnabled(true);
+              }}
+            >
+              Edit
+            </span>
+            <span className={classes.previousActivitySpacer}>-</span>
+            <span className={classes.previousActivityDeleteButton}>Delete</span>
+          </div>
+        ) : null}
       </div>
     </div>
   );

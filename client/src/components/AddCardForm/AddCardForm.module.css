@@ -1,34 +1,31 @@
-.buttonWrapper {
-  padding: 0.3rem 0rem;
-}
-
-.buttonWrapper button {
-  border: none;
-  width: 100%;
-  background-color: #f77f00;
-  color: white;
-  padding: 0.5rem 0rem;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 3px;
-}
-.buttonWrapper button:hover {
-  background-color: #cc6c05;
+.addCardLabel {
+  margin-left: 0.5rem;
 }
 
 .editingModeWrapper {
-  padding: 0.3rem 0rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.editingModeWrapper .addButton {
+.addButton {
   border: none;
-  padding: 0.3rem 0.5rem;
-  background-color: rgb(106, 106, 241);
-  color: white;
-  border-radius: 3px;
+  width: 100%;
+  background-color: transparent;
+  color: rgb(33, 43, 54);
+  padding: 0.7rem 0rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addButton:hover,
+.addButton:active {
+  background-color: rgba(145, 158, 171, 0.08);
 }
 
 .cancelButton {
@@ -48,13 +45,15 @@
 
 .addNewCardTextarea {
   box-sizing: border-box;
-  padding: 0.2rem 0.3rem;
+  padding: 0.7rem 0.5rem;
   resize: none;
   font-family: inherit;
+  font-weight: 400;
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   width: 100%;
   min-height: 60px;
+  margin-bottom: 1rem;
 }
 .addNewCardTextarea:focus,
 .addNewCardTextarea:active {

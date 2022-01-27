@@ -1,4 +1,6 @@
 import classes from "./CommentBox.module.css";
+import AutoHeightTextarea from "../../TextArea";
+
 import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 import { RiAttachment2 } from "react-icons/ri";
@@ -6,7 +8,6 @@ import { GoMention } from "react-icons/go";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 import { BsCreditCard2Back } from "react-icons/bs";
 import { IconContext } from "react-icons";
-import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
 
 const CommentBox = ({ passedComment, onSave, onClose, type }) => {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -19,18 +20,6 @@ const CommentBox = ({ passedComment, onSave, onClose, type }) => {
     <HiOutlineEmojiHappy />,
     <BsCreditCard2Back />,
   ];
-
-  // const handleAutoHeight = useCallback(() => {
-  //   if (textareaRef.current) {
-  //     textareaRef.current.style.height = "auto";
-  //     textareaRef.current.style.height =
-  //       textareaRef.current.scrollHeight + "px";
-  //   }
-  // }, [textareaRef]);
-
-  // useEffect(() => {
-  //   handleAutoHeight();
-  // }, [handleAutoHeight]);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {

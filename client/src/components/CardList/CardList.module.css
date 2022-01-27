@@ -1,27 +1,31 @@
 .wrapper {
-  background-color: #fcca66;
+  background-color: rgba(145, 158, 171, 0.08);
   text-align: center;
   border-radius: 5px;
-  width: 150px;
-  flex: 0 0 150px;
-  padding: 0.5rem 0.5rem;
+  width: 250px;
+  flex: none;
+  cursor: grab;
+  padding: 0.5rem 1rem;
   display: flex;
   flex-direction: column;
+  font-family: "Public Sans", sans-serif;
+  border: 1px solid rgba(145, 158, 171, 0.12);
 }
 
 .header {
-  margin: 0rem 0rem;
-  margin-bottom: 0.5rem;
-  padding: 0.1rem 0.2rem;
-  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+  padding: 0.4rem 0.5rem;
+  font-weight: 700;
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
   overflow-wrap: break-word;
   overflow-y: hidden;
   width: 100%;
   outline: none;
   border: none;
   border-radius: 2px;
+  color: rgb(33, 43, 54);
 }
 .headerNotEditable {
   cursor: pointer;
@@ -33,7 +37,7 @@
 
 .headerEditable:focus {
   outline: none;
-  box-shadow: 0px 0px 0px 1.5px #003049;
+  box-shadow: 0px 0px 0px 1.5px rgb(0, 171, 85);
 }
 
 .listOfCardWrapper {

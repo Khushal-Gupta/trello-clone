@@ -1,10 +1,11 @@
 import { useContext, useRef, useState } from "react";
-import classes from "./DescriptionComponent.module.css";
 import { MdOutlineDescription } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
-import { CardListContext } from "../../context/cardlist-context";
-import AutoHeightTextarea from "../autoHeightTextarea";
+
+import { CardListContext } from "../../../context/cardlist-context";
+import AutoHeightTextarea from "../../TextArea";
+import classes from "./DescriptionComponent.module.css";
 
 export default function DescriptionComponent({ cardId }) {
   const textareaRef = useRef(null);

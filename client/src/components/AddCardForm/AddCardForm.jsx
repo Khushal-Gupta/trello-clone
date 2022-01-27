@@ -1,7 +1,9 @@
 import clsx from "clsx";
 import { Fragment, useContext, useRef, useState } from "react";
+import { VscAdd as AddIcon } from "react-icons/vsc";
+
 import { CardListContext } from "../../context/cardlist-context";
-import AutoHeightTextarea from "../autoHeightTextarea/AutoHeightTextarea";
+import AutoHeightTextarea from "../TextArea";
 import classes from "./AddCardForm.module.css";
 
 const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
@@ -10,7 +12,7 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
 
   const { addCard } = useContext(CardListContext);
 
-  const addCardHandler = (event) => {
+  const addCardHandler = () => {
     const value = newCardTitle;
     if (value) {
       addCard(value);
@@ -22,27 +24,19 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
     setNewCardTitle(value);
   };
 
-  const onCancelEditingNewCard = () => {
-    setShowNewCardEditor(false);
-    setNewCardTitle("");
-  };
   return (
     <Fragment>
-      <div
-        className={clsx(
-          classes.buttonWrapper,
-          showNewCardEditor && classes.hidden
-        )}
+      <button
+        className={clsx(classes.addButton, showNewCardEditor && classes.hidden)}
+        onClick={() => {
+          setNewCardTitle("");
+          setShowNewCardEditor(true);
+        }}
       >
-        <button
-          onClick={() => {
-            setNewCardTitle("");
-            setShowNewCardEditor(true);
-          }}
-        >
-          + Add Card
-        </button>
-      </div>
+        <AddIcon />
+        <div className={classes.addCardLabel}>Add Card</div>
+      </button>
+
       {showNewCardEditor && (
         <div>
           <AutoHeightTextarea
@@ -60,14 +54,8 @@ const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
               className={classes.addButton}
               onClick={addCardHandler}
             >
-              + Add Card
-            </button>
-            <button
-              type="button"
-              className={classes.cancelButton}
-              onClick={onCancelEditingNewCard}
-            >
-              x
+              <AddIcon />
+              <div className={classes.addCardLabel}>Add Card</div>
             </button>
           </div>
         </div>
