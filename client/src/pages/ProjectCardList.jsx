@@ -5,12 +5,7 @@ import CardList from "../components/CardList";
 import classes from "./ProjectCardList.module.css";
 
 export default function ProjectCardList() {
-  const [listOfCardList, setListOfCardList] = useState([
-    { title: 'To Do"s', id: uuidv4() },
-    { title: "Achievements", id: uuidv4() },
-    { title: "Code Reviews", id: uuidv4() },
-    { title: "Design", id: uuidv4() },
-  ]);
+  const [listOfCardList, setListOfCardList] = useState([]);
   const onAddCardListHandler = (newCardList) => {
     setListOfCardList((prevlist) => [
       ...prevlist,

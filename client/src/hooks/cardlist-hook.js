@@ -1,32 +1,8 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const DUMMY_INITAL_CARDS = [
-  {
-    id: uuidv4(),
-    title: "First small task",
-    description: "Add a more detailed description...",
-    listOfComment: [],
-    order: 1,
-  },
-  {
-    id: uuidv4(),
-    title: "Second small task",
-    description: "Add a more detailed description...",
-    listOfComment: [],
-    order: 2,
-  },
-  {
-    id: uuidv4(),
-    title: "Third very biggggggggggg and lengthy task",
-    description: "Add a more detailed description...",
-    listOfComment: [],
-    order: 3,
-  },
-];
-
 export const useCardListHook = (givenTitle) => {
-  const [listOfCard, setListOfcard] = useState([...DUMMY_INITAL_CARDS]);
+  const [listOfCard, setListOfcard] = useState([]);
   const [title, setTitle] = useState(givenTitle);
 
   const addCard = (newCardTitle) => {
