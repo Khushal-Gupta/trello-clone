@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -105,10 +104,24 @@ export const useCardListHook = (cardlistId, givenTitle) => {
     //   });
     // });
   };
+
+  const setCardlistTitle = (newCardlistTitle) => {
+    const prevTitle = title;
+    setTitle(newCardlistTitle);
+    axiosInstance
+      .put(`/cardlists/${cardlistId}`, { data: { title: newCardlistTitle } })
+      .then()
+      .catch((error) => {
+        setTitle(prevTitle);
+        console.log(error);
+      });
+  };
+
+  
   return {
     title,
     listOfCard,
-    setTitle,
+    setTitle: setCardlistTitle,
     addCard,
     setCardTitle,
     setCardDescription,

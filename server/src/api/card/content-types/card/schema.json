@@ -33,6 +33,10 @@
     },
     "order": {
       "type": "biginteger"
+    },
+    "isCompleted": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

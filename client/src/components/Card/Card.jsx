@@ -16,14 +16,14 @@ export default function Card({ cardId, cardTitle }) {
         {cardTitle}
       </div>
 
-      <CardModal
+      {/* <CardModal
         show={showModal}
         onClose={() => {
           setShowModal(false);
         }}
         showCloseButton
         cardId={cardId}
-      />
+      /> */}
     </>
   );
 }
