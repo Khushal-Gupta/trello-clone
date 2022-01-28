@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 import AddCardListButton from "../components/AddCardListButton";
@@ -13,10 +12,21 @@ const axiosInstance = axios.create({
 export default function ProjectCardList() {
   const [listOfCardList, setListOfCardList] = useState([]);
   const onAddCardListHandler = (newCardList) => {
-    setListOfCardList((prevlist) => [
-      ...prevlist,
-      { id: uuidv4(), title: newCardList },
-    ]);
+    axiosInstance
+      .post("/cardlists", { data: { title: newCardList } })
+      .then(({ data: { data } }) => {
+        const {
+          id,
+          attributes: { title },
+        } = data;
+        setListOfCardList((prevlist) => [
+          ...prevlist,
+          { id: id, title: title },
+        ]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
