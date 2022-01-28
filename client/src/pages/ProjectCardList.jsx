@@ -51,6 +51,7 @@ export default function ProjectCardList() {
         <CardList
           key={elem.id}
           title={elem.title}
+          id = {elem.id}
           passedClasses={classes.childStyles}
         />
       ))}

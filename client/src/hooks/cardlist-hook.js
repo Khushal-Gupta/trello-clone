@@ -1,63 +1,109 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
-export const useCardListHook = (givenTitle) => {
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:1337/api/",
+});
+
+export const useCardListHook = (cardlistId, givenTitle) => {
   const [listOfCard, setListOfcard] = useState([]);
   const [title, setTitle] = useState(givenTitle);
 
+  useEffect(() => {
+    axiosInstance
+      .get(`/cardlists/${cardlistId}?populate=*`)
+      .then((response) => {
+        const cards = response.data.data.attributes.cards.data;
+        const fetchedCards = cards.map(
+          ({ id, attributes: { title, description, order } }) => {
+            return {
+              id,
+              title,
+              description,
+              listOfComments: [],
+              order: +order,
+            };
+          }
+        );
+        setListOfcard(fetchedCards);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [cardlistId]);
+
   const addCard = (newCardTitle) => {
     const newCardObject = {
-      id: uuidv4(),
       title: newCardTitle,
       description: "Add a more detailed description...",
-      listOfComment: [],
       order: listOfCard.length,
+      cardlist: cardlistId,
     };
-    setListOfcard((prevList) => [...prevList, newCardObject]);
+
+    axiosInstance
+      .post("/cards", { data: newCardObject })
+      .then((response) => {
+        const {
+          id,
+          attributes: { title, description, order },
+        } = response.data.data;
+        const newCard = {
+          id,
+          title,
+          description,
+          order: +order,
+          listOfComments: [],
+        };
+        setListOfcard((prevList) => [...prevList, newCard]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const setCardTitle = (cardId, newTitle) => {
-    setListOfcard((prevList) =>
-      prevList.map((card) =>
-        card.id === cardId ? { ...card, title: newTitle } : card
-      )
-    );
+    // setListOfcard((prevList) =>
+    //   prevList.map((card) =>
+    //     card.id === cardId ? { ...card, title: newTitle } : card
+    //   )
+    // );
   };
 
   const setCardDescription = (cardId, newDescription) => {
-    setListOfcard((prevList) =>
-      prevList.map((card) =>
-        card.id === cardId ? { ...card, description: newDescription } : card
-      )
-    );
+    // setListOfcard((prevList) =>
+    //   prevList.map((card) =>
+    //     card.id === cardId ? { ...card, description: newDescription } : card
+    //   )
+    // );
   };
 
   const addCommentToCard = (cardId, comment, creatorName, createdAt) => {
-    const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
-    setListOfcard((prevList) =>
-      prevList.map((card) =>
-        card.id === cardId
-          ? { ...card, listOfComment: [commentObject, ...card.listOfComment] }
-          : card
-      )
-    );
+    // const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
+    // setListOfcard((prevList) =>
+    //   prevList.map((card) =>
+    //     card.id === cardId
+    //       ? { ...card, listOfComment: [commentObject, ...card.listOfComment] }
+    //       : card
+    //   )
+    // );
   };
 
   const editComment = (cardId, commentId, newComment, updatedAt) => {
-    setListOfcard((prevList) => {
-      return prevList.map((card) => {
-        if (cardId === card.id) {
-          return {
-            ...card,
-            listOfComment: card.listOfComment.map((commentObj) =>
-              commentObj.id === commentId
-                ? { ...commentObj, comment: newComment, updatedAt: updatedAt }
-                : commentObj
-            ),
-          };
-        } else return card;
-      });
-    });
+    // setListOfcard((prevList) => {
+    //   return prevList.map((card) => {
+    //     if (cardId === card.id) {
+    //       return {
+    //         ...card,
+    //         listOfComment: card.listOfComment.map((commentObj) =>
+    //           commentObj.id === commentId
+    //             ? { ...commentObj, comment: newComment, updatedAt: updatedAt }
+    //             : commentObj
+    //         ),
+    //       };
+    //     } else return card;
+    //   });
+    // });
   };
   return {
     title,
