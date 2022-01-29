@@ -21,6 +21,10 @@
       "relation": "oneToMany",
       "target": "api::card.card",
       "mappedBy": "cardlist"
+    },
+    "order": {
+      "type": "biginteger",
+      "required": true
     }
   }
 }

@@ -13,15 +13,17 @@ export default function ProjectCardList() {
   const [listOfCardList, setListOfCardList] = useState([]);
   const onAddCardListHandler = (newCardList) => {
     axiosInstance
-      .post("/cardlists", { data: { title: newCardList } })
+      .post("/cardlists", {
+        data: { title: newCardList, order: listOfCardList.length },
+      })
       .then(({ data: { data } }) => {
         const {
           id,
-          attributes: { title },
+          attributes: { title, order },
         } = data;
         setListOfCardList((prevlist) => [
           ...prevlist,
-          { id: id, title: title },
+          { id: id, title: title, order: +order },
         ]);
       })
       .catch((error) => {
@@ -35,9 +37,13 @@ export default function ProjectCardList() {
     };
     fetchCardlists()
       .then(({ data: { data } }) => {
-        const newListOfCardlist = data.map(({ id, attributes }) => {
-          return { id: id, title: attributes.title };
-        });
+        const newListOfCardlist = data
+          .map(({ id, attributes }) => ({
+            id: id,
+            title: attributes.title,
+            order: +attributes.order,
+          }))
+          .sort((a, b) => a.order - b.order);
         setListOfCardList(newListOfCardlist);
       })
       .catch((err) => {
@@ -51,7 +57,7 @@ export default function ProjectCardList() {
         <CardList
           key={elem.id}
           title={elem.title}
-          id = {elem.id}
+          id={elem.id}
           passedClasses={classes.childStyles}
         />
       ))}
