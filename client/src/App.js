@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./components/navbar";
-import ProjectCardList from "./pages/ProjectCardList";
+import Workspace from "./pages/Workspace";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -11,7 +11,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="completeWrapper">
         <Navbar />
-        <ProjectCardList />
+        <Workspace />
       </div>
     </QueryClientProvider>
   );
