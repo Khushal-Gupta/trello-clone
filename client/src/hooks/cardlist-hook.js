@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
+
 import { findCards, postCard } from "../api/card-api";
 import { putCardlist } from "../api/cardlist-api";
 
 export const useCardListHook = (cardlistId, givenTitle) => {
-  const [listOfCard, setListOfcard] = useState([]);
   const [title, setTitle] = useState(givenTitle);
-
-  useEffect(() => {
-    findCards({ cardlist: { id: cardlistId } })
-      .then((fetchedCards) => {
-        setListOfcard(fetchedCards);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [cardlistId]);
+  const queryClient = useQueryClient();
+  const queryKey = ["cardlist", cardlistId];
+  
+  const {
+    isLoading,
+    error,
+    data: listOfCard,
+  } = useQuery(queryKey, () => findCards({ cardlist: { id: cardlistId } }));
 
   const addCard = (newCardTitle) => {
     const newCardObject = {
@@ -26,7 +25,10 @@ export const useCardListHook = (cardlistId, givenTitle) => {
 
     postCard(newCardObject)
       .then((newCard) => {
-        setListOfcard((prevList) => [...prevList, newCard]);
+        queryClient.setQueryData(queryKey, (prevList) => [
+          ...prevList,
+          newCard,
+        ]);
       })
       .catch((error) => {
         console.log(error);
@@ -97,5 +99,7 @@ export const useCardListHook = (cardlistId, givenTitle) => {
     setCardDescription,
     addCommentToCard,
     editComment,
+    isLoading,
+    error,
   };
 };

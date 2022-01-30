@@ -19,6 +19,8 @@ export default function CardList({
   const titleRef = useRef(null);
   const {
     title,
+    isLoading,
+    error,
     listOfCard,
     setTitle,
     addCard,
@@ -39,6 +41,18 @@ export default function CardList({
       document.removeEventListener("click", outsideClickHandler);
     };
   }, []);
+
+  if (isLoading)
+    return (
+      <div className={clsx(classes.wrapper, passedClasses)}>Loading...</div>
+    );
+
+  if (error)
+    return (
+      <div className={clsx(classes.wrapper, passedClasses)}>
+        Error Occured...
+      </div>
+    );
 
   return (
     <CardListContext.Provider
