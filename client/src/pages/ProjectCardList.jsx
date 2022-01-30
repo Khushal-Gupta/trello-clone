@@ -1,30 +1,20 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import AddCardListButton from "../components/AddCardListButton";
 import CardList from "../components/CardList";
 import classes from "./ProjectCardList.module.css";
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:1337/api/",
-});
+import { findCardlists, postCardlist } from "../api/cardlist-api";
 
 export default function ProjectCardList() {
   const [listOfCardList, setListOfCardList] = useState([]);
-  const onAddCardListHandler = (newCardList) => {
-    axiosInstance
-      .post("/cardlists", {
-        data: { title: newCardList, order: listOfCardList.length },
-      })
-      .then(({ data: { data } }) => {
-        const {
-          id,
-          attributes: { title, order },
-        } = data;
-        setListOfCardList((prevlist) => [
-          ...prevlist,
-          { id: id, title: title, order: +order },
-        ]);
+  const onAddCardListHandler = (newCardListTitle) => {
+    const newCardListOject = {
+      title: newCardListTitle,
+      order: listOfCardList.length,
+    };
+    postCardlist(newCardListOject)
+      .then((newCardList) => {
+        setListOfCardList((prevlist) => [...prevlist, newCardList]);
       })
       .catch((error) => {
         console.log(error);
@@ -32,20 +22,8 @@ export default function ProjectCardList() {
   };
 
   useEffect(() => {
-    const fetchCardlists = async () => {
-      return axiosInstance.get("/cardlists");
-    };
-    fetchCardlists()
-      .then(({ data: { data } }) => {
-        const newListOfCardlist = data
-          .map(({ id, attributes }) => ({
-            id: id,
-            title: attributes.title,
-            order: +attributes.order,
-          }))
-          .sort((a, b) => a.order - b.order);
-        setListOfCardList(newListOfCardlist);
-      })
+    findCardlists()
+      .then((fetchedListOfCardlist) => setListOfCardList(fetchedListOfCardlist))
       .catch((err) => {
         console.log(err);
       });

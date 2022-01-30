@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { find as findCards, post as postCard } from "../api/card-api";
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:1337/api/",
-});
+import { findCards, postCard } from "../api/card-api";
+import { putCardlist } from "../api/cardlist-api";
 
 export const useCardListHook = (cardlistId, givenTitle) => {
   const [listOfCard, setListOfcard] = useState([]);
@@ -84,8 +80,7 @@ export const useCardListHook = (cardlistId, givenTitle) => {
   const setCardlistTitle = (newCardlistTitle) => {
     const prevTitle = title;
     setTitle(newCardlistTitle);
-    axiosInstance
-      .put(`/cardlists/${cardlistId}`, { data: { title: newCardlistTitle } })
+    putCardlist({ title: newCardlistTitle })
       .then()
       .catch((error) => {
         setTitle(prevTitle);

@@ -2,18 +2,18 @@ import axios from "axios";
 import qs from "qs";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:1337/api/",
+  baseURL: "http://localhost:1337/api/cards/",
 });
 
 const mapFetchedCard = ({ id, attributes }) => {
   return { id, ...attributes, order: +attributes.order };
 };
 
-export const findOne = async (cardId) => {
+export const findOneCard = async (cardId) => {
   try {
-    const {
+    let {
       data: { data: card },
-    } = await axiosInstance.get(`/cards/${cardId}`);
+    } = await axiosInstance.get(`/${cardId}`);
     const fetchedCard = mapFetchedCard(card);
     return fetchedCard;
   } catch (err) {
@@ -21,12 +21,12 @@ export const findOne = async (cardId) => {
   }
 };
 
-export const find = async (filters = {}) => {
+export const findCards = async (filters = {}) => {
   try {
     const queryParams = qs.stringify({ filters }, { encodeValuesOnly: true });
     let {
       data: { data: fetchedCards },
-    } = await axiosInstance.get(`/cards?${queryParams}`);
+    } = await axiosInstance.get(`/?${queryParams}`);
     fetchedCards = fetchedCards.map((card) => mapFetchedCard(card));
     return fetchedCards;
   } catch (err) {
@@ -34,11 +34,11 @@ export const find = async (filters = {}) => {
   }
 };
 
-export const post = async (newCardObject) => {
+export const postCard = async (newCardObject) => {
   try {
     let {
       data: { data: newCard },
-    } = await axiosInstance.post("/cards", { data: newCardObject });
+    } = await axiosInstance.post("/", { data: newCardObject });
     newCard = mapFetchedCard(newCard);
     return newCard;
   } catch (err) {
