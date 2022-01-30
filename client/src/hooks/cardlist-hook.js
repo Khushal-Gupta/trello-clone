@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { find as findCards, post as postCard } from "../api/card-api";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:1337/api/",
@@ -10,21 +11,8 @@ export const useCardListHook = (cardlistId, givenTitle) => {
   const [title, setTitle] = useState(givenTitle);
 
   useEffect(() => {
-    axiosInstance
-      .get(`/cardlists/${cardlistId}?populate=*`)
-      .then((response) => {
-        const cards = response.data.data.attributes.cards.data;
-        const fetchedCards = cards.map(
-          ({ id, attributes: { title, description, order } }) => {
-            return {
-              id,
-              title,
-              description,
-              listOfComments: [],
-              order: +order,
-            };
-          }
-        );
+    findCards({ cardlist: { id: cardlistId } })
+      .then((fetchedCards) => {
         setListOfcard(fetchedCards);
       })
       .catch((error) => {
@@ -40,20 +28,8 @@ export const useCardListHook = (cardlistId, givenTitle) => {
       cardlist: cardlistId,
     };
 
-    axiosInstance
-      .post("/cards", { data: newCardObject })
-      .then((response) => {
-        const {
-          id,
-          attributes: { title, description, order },
-        } = response.data.data;
-        const newCard = {
-          id,
-          title,
-          description,
-          order: +order,
-          listOfComments: [],
-        };
+    postCard(newCardObject)
+      .then((newCard) => {
         setListOfcard((prevList) => [...prevList, newCard]);
       })
       .catch((error) => {
@@ -117,7 +93,6 @@ export const useCardListHook = (cardlistId, givenTitle) => {
       });
   };
 
-  
   return {
     title,
     listOfCard,

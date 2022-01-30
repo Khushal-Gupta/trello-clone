@@ -1,16 +1,15 @@
-import { useState } from "react";
-import CardModal from "../CardModal";
+// import CardModal from "../CardModal";
 import classes from "./Card.module.css";
 
 export default function Card({ cardId, cardTitle }) {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   return (
     <>
       <div
         className={classes.wrapper}
         onClick={() => {
-          setShowModal(true);
+          // setShowModal(true);
         }}
       >
         {cardTitle}
