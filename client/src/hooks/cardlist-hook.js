@@ -80,7 +80,7 @@ export const useCardListHook = (cardlistId, givenTitle) => {
   const setCardlistTitle = (newCardlistTitle) => {
     const prevTitle = title;
     setTitle(newCardlistTitle);
-    putCardlist({ title: newCardlistTitle })
+    putCardlist(cardlistId, { title: newCardlistTitle })
       .then()
       .catch((error) => {
         setTitle(prevTitle);

@@ -51,7 +51,7 @@ export const postCardlist = async (newCardlistObject) => {
   }
 };
 
-export const putCardlist = async (cardlistId, { patchObject }) => {
+export const putCardlist = async (cardlistId,  patchObject ) => {
   try {
     let {
       data: { data: patchedCardlist },
