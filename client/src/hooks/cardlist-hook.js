@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 
 import { findCards, postCard } from "../api/card-api";
 import { putCardlist } from "../api/cardlist-api";
@@ -8,12 +8,30 @@ export const useCardListHook = (cardlistId, givenTitle) => {
   const [title, setTitle] = useState(givenTitle);
   const queryClient = useQueryClient();
   const queryKey = ["cardlist", cardlistId];
-  
+
   const {
     isLoading,
     error,
     data: listOfCard,
   } = useQuery(queryKey, () => findCards({ cardlist: { id: cardlistId } }));
+
+  const addCardMutationHook = useMutation(
+    (newCardObject) => postCard(newCardObject),
+    {
+      onSuccess: (newCard) => {
+        queryClient.setQueryData(queryKey, (prevlist) => [
+          ...prevlist,
+          newCard,
+        ]);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+    }
+  );
 
   const addCard = (newCardTitle) => {
     const newCardObject = {
@@ -22,17 +40,7 @@ export const useCardListHook = (cardlistId, givenTitle) => {
       order: listOfCard.length,
       cardlist: cardlistId,
     };
-
-    postCard(newCardObject)
-      .then((newCard) => {
-        queryClient.setQueryData(queryKey, (prevList) => [
-          ...prevList,
-          newCard,
-        ]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    addCardMutationHook.mutate(newCardObject);
   };
 
   const setCardTitle = (cardId, newTitle) => {
