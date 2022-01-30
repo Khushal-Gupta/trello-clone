@@ -21,9 +21,12 @@ export const findOneCardlist = async (cardlistId) => {
   }
 };
 
-export const findCardlists = async (filters = {}) => {
+export const findCardlists = async (filters = {}, sort = ["order:asc"]) => {
   try {
-    const queryParams = qs.stringify({ filters }, { encodeValuesOnly: true });
+    const queryParams = qs.stringify(
+      { filters, sort },
+      { encodeValuesOnly: true }
+    );
     let {
       data: { data: fetchedCardlists },
     } = await axiosInstance.get(`/?${queryParams}`);
