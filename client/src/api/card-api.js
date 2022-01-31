@@ -52,3 +52,29 @@ export const postCard = async (newCardObject) => {
     throw err;
   }
 };
+
+export const putCards = async (patchPayload) => {
+  /**
+    patchPayload : {
+      [cardId1] : {
+        title: 'newTitle',
+        order: 'newOrder',
+      },
+      [cardId2] : {
+        title: 'newTitle',
+        order: 'newOrder',
+      }
+    }
+   */
+  try {
+    let {
+      data: { data: patchedCards },
+    } = await axiosInstance.put("/", {
+      data: patchPayload,
+    });
+    patchedCards = patchedCards.map((card) => mapFetchedCard(card));
+    return patchedCards;
+  } catch (err) {
+    throw err;
+  }
+};

@@ -96,4 +96,17 @@ export const putCardlists = async (patchPayload) => {
       }
     }
    */
+  try {
+    let {
+      data: { data: patchedCardlists },
+    } = await axiosInstance.put("/", {
+      data: patchPayload,
+    });
+    patchedCardlists = patchedCardlists.map((cardlist) =>
+      mapFetchedCardlist(cardlist)
+    );
+    return patchedCardlists;
+  } catch (err) {
+    throw err;
+  }
 };
