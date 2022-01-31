@@ -6,24 +6,29 @@ const axiosInstance = axios.create({
 });
 
 const mapFetchedCardlist = ({ id, attributes }) => {
-  let cardList =  { id, ...attributes, order: +attributes.order };
-  if(attributes.cards){
-    cardList = {...cardList, cards: attributes.cards.data};
+  /* Return value
+  {
+    id: 1,
+    title: '...',
+    order: 3,
+    ...otherAttributes
+  }
+  */
+  let cardList = { id, ...attributes, order: +attributes.order };
+  if (attributes.cards) {
+    cardList = { ...cardList, cards: attributes.cards.data };
   }
   return cardList;
 };
 
-export const findOneCardlist = async (cardlistId, config={}) => {
-  const queryParams = qs.stringify(
-    config,
-    { encodeValuesOnly: true }
-  );
+export const findOneCardlist = async (cardlistId, config = {}) => {
+  const queryParams = qs.stringify(config, { encodeValuesOnly: true });
   try {
     let {
       data: { data: fetchedCardlist },
     } = await axiosInstance.get(`/${cardlistId}?${queryParams}`);
     fetchedCardlist = mapFetchedCardlist(fetchedCardlist);
-    
+
     return fetchedCardlist;
   } catch (err) {
     throw err;
@@ -76,4 +81,19 @@ export const putCardlist = async (cardlistId, patchObject) => {
   } catch (err) {
     throw err;
   }
+};
+
+export const putCardlists = async (patchPayload) => {
+  /**
+    patchPayload : {
+      [cardlistId1] : {
+        title: 'newTitle',
+        order: 'newOrder',
+      },
+      [cardlistId2] : {
+        title: 'newTitle',
+        order: 'newOrder',
+      }
+    }
+   */
 };
