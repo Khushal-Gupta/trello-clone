@@ -1,5 +1,4 @@
 import { useQuery, useQueryClient, useMutation } from "react-query";
-
 import { postCard } from "../api/card-api";
 import { findOneCardlist, putCardlist } from "../api/cardlist-api";
 
@@ -55,49 +54,49 @@ export const useCardListHook = (cardlistId) => {
     addCardMutationHook.mutate(newCardObject);
   };
 
-  const setCardTitle = (cardId, newTitle) => {
-    // setListOfcard((prevList) =>
-    //   prevList.map((card) =>
-    //     card.id === cardId ? { ...card, title: newTitle } : card
-    //   )
-    // );
-  };
+  // const setCardTitle = (cardId, newTitle) => {
+  //   // setListOfcard((prevList) =>
+  //   //   prevList.map((card) =>
+  //   //     card.id === cardId ? { ...card, title: newTitle } : card
+  //   //   )
+  //   // );
+  // };
 
-  const setCardDescription = (cardId, newDescription) => {
-    // setListOfcard((prevList) =>
-    //   prevList.map((card) =>
-    //     card.id === cardId ? { ...card, description: newDescription } : card
-    //   )
-    // );
-  };
+  // const setCardDescription = (cardId, newDescription) => {
+  //   // setListOfcard((prevList) =>
+  //   //   prevList.map((card) =>
+  //   //     card.id === cardId ? { ...card, description: newDescription } : card
+  //   //   )
+  //   // );
+  // };
 
-  const addCommentToCard = (cardId, comment, creatorName, createdAt) => {
-    // const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
-    // setListOfcard((prevList) =>
-    //   prevList.map((card) =>
-    //     card.id === cardId
-    //       ? { ...card, listOfComment: [commentObject, ...card.listOfComment] }
-    //       : card
-    //   )
-    // );
-  };
+  // const addCommentToCard = (cardId, comment, creatorName, createdAt) => {
+  //   // const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
+  //   // setListOfcard((prevList) =>
+  //   //   prevList.map((card) =>
+  //   //     card.id === cardId
+  //   //       ? { ...card, listOfComment: [commentObject, ...card.listOfComment] }
+  //   //       : card
+  //   //   )
+  //   // );
+  // };
 
-  const editComment = (cardId, commentId, newComment, updatedAt) => {
-    // setListOfcard((prevList) => {
-    //   return prevList.map((card) => {
-    //     if (cardId === card.id) {
-    //       return {
-    //         ...card,
-    //         listOfComment: card.listOfComment.map((commentObj) =>
-    //           commentObj.id === commentId
-    //             ? { ...commentObj, comment: newComment, updatedAt: updatedAt }
-    //             : commentObj
-    //         ),
-    //       };
-    //     } else return card;
-    //   });
-    // });
-  };
+  // const editComment = (cardId, commentId, newComment, updatedAt) => {
+  //   // setListOfcard((prevList) => {
+  //   //   return prevList.map((card) => {
+  //   //     if (cardId === card.id) {
+  //   //       return {
+  //   //         ...card,
+  //   //         listOfComment: card.listOfComment.map((commentObj) =>
+  //   //           commentObj.id === commentId
+  //   //             ? { ...commentObj, comment: newComment, updatedAt: updatedAt }
+  //   //             : commentObj
+  //   //         ),
+  //   //       };
+  //   //     } else return card;
+  //   //   });
+  //   // });
+  // };
 
   const setCardlistTitle = (newCardlistTitle) => {
     const prevTitle = title;
@@ -121,10 +120,6 @@ export const useCardListHook = (cardlistId) => {
     listOfCard,
     setTitle: setCardlistTitle,
     addCard,
-    setCardTitle,
-    setCardDescription,
-    addCommentToCard,
-    editComment,
     isLoading,
     error,
   };
