@@ -1,28 +1,40 @@
-import { useState } from "react";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
-import { findCards, postCard } from "../api/card-api";
-import { putCardlist } from "../api/cardlist-api";
+import { postCard } from "../api/card-api";
+import { findOneCardlist, putCardlist } from "../api/cardlist-api";
 
-export const useCardListHook = (cardlistId, givenTitle) => {
-  const [title, setTitle] = useState(givenTitle);
+export const useCardListHook = (cardlistId) => {
   const queryClient = useQueryClient();
   const queryKey = ["cardlist", cardlistId];
 
   const {
     isLoading,
     error,
-    data: listOfCard,
-  } = useQuery(queryKey, () => findCards({ cardlist: { id: cardlistId } }));
+    data: { title, cards: listOfCard },
+  } = useQuery(
+    queryKey,
+    () =>
+      findOneCardlist(cardlistId, {
+        populate: {
+          cards: {
+            fields: ["id"],
+            sort: ["order:asc"],
+          },
+        },
+      }),
+    {
+      initialData: { title: "Loading..", cards: [] },
+    }
+  );
 
   const addCardMutationHook = useMutation(
     (newCardObject) => postCard(newCardObject),
     {
       onSuccess: (newCard) => {
-        queryClient.setQueryData(queryKey, (prevlist) => [
-          ...prevlist,
-          newCard,
-        ]);
+        queryClient.setQueryData(queryKey, (prevState) => ({
+          ...prevState,
+          cards: [...prevState.cards, newCard.id],
+        }));
       },
       onError: (error) => {
         console.log(error);
@@ -89,11 +101,17 @@ export const useCardListHook = (cardlistId, givenTitle) => {
 
   const setCardlistTitle = (newCardlistTitle) => {
     const prevTitle = title;
-    setTitle(newCardlistTitle);
+    queryClient.setQueryData(queryKey, (prevState) => ({
+      ...prevState,
+      title: newCardlistTitle,
+    }));
     putCardlist(cardlistId, { title: newCardlistTitle })
       .then()
       .catch((error) => {
-        setTitle(prevTitle);
+        queryClient.setQueryData(queryKey, (prevState) => ({
+          ...prevState,
+          title: prevTitle,
+        }));
         console.log(error);
       });
   };

@@ -7,9 +7,10 @@ export default function ProjectCardList() {
   const { isLoading, error, listOfCardList, onAddCardListHandler } =
     useWorkspaceHook();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className={classes.wrapper}>Loading...</div>;
 
-  if (error) return <div>Some error occured...</div>;
+  if (error)
+    return <div className={classes.wrapper}>Some error occured...</div>;
 
   return (
     <div className={classes.wrapper}>

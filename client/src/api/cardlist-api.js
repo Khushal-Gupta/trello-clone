@@ -6,25 +6,38 @@ const axiosInstance = axios.create({
 });
 
 const mapFetchedCardlist = ({ id, attributes }) => {
-  return { id, ...attributes, order: +attributes.order };
+  let cardList =  { id, ...attributes, order: +attributes.order };
+  if(attributes.cards){
+    cardList = {...cardList, cards: attributes.cards.data};
+  }
+  return cardList;
 };
 
-export const findOneCardlist = async (cardlistId) => {
+export const findOneCardlist = async (cardlistId, config={}) => {
+  const queryParams = qs.stringify(
+    config,
+    { encodeValuesOnly: true }
+  );
   try {
     let {
       data: { data: fetchedCardlist },
-    } = await axiosInstance.get(`/${cardlistId}`);
+    } = await axiosInstance.get(`/${cardlistId}?${queryParams}`);
     fetchedCardlist = mapFetchedCardlist(fetchedCardlist);
+    
     return fetchedCardlist;
   } catch (err) {
     throw err;
   }
 };
 
-export const findCardlists = async (filters = {}, sort = ["order:asc"]) => {
+export const findCardlists = async (
+  filters = {},
+  sort = ["order:asc"],
+  populate = {}
+) => {
   try {
     const queryParams = qs.stringify(
-      { filters, sort },
+      { filters, sort, populate },
       { encodeValuesOnly: true }
     );
     let {
@@ -51,7 +64,7 @@ export const postCardlist = async (newCardlistObject) => {
   }
 };
 
-export const putCardlist = async (cardlistId,  patchObject ) => {
+export const putCardlist = async (cardlistId, patchObject) => {
   try {
     let {
       data: { data: patchedCardlist },

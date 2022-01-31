@@ -1,7 +1,10 @@
 // import CardModal from "../CardModal";
+import { useCardHook } from "../../hooks/card-hook";
 import classes from "./Card.module.css";
 
-export default function Card({ cardId, cardTitle }) {
+export default function Card({ cardId }) {
+  const { title: cardTitle } = useCardHook(cardId);
+
   // const [showModal, setShowModal] = useState(false);
 
   return (

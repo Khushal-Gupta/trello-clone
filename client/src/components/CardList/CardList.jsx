@@ -96,7 +96,7 @@ export default function CardList({
 
         <div className={classes.listOfCardWrapper}>
           {listOfCard.map((elem) => (
-            <Card cardId={elem.id} key={elem.id} cardTitle={elem.title} />
+            <Card cardId={elem.id} key={elem.id} />
           ))}
         </div>
 
