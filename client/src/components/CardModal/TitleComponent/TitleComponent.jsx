@@ -17,7 +17,6 @@ export default function TitleComponent({ cardId }) {
 
   const { title } = listOfCard.find((card) => card.id === cardId);
 
-  const textareaRef = useRef(null);
   const onBlurTitleFieldHandler = (value) => {
     if (value) {
       setCardTitle(cardId, value);
@@ -34,7 +33,6 @@ export default function TitleComponent({ cardId }) {
       </div>
       <div className={classes.titleDetailsWrapper}>
         <AutoHeightTextarea
-          ref={textareaRef}
           className={clsx(
             isEditMode
               ? classes.titleFieldEditMode

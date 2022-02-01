@@ -18,7 +18,6 @@ export default function CardList({
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
   const [isTitleEditable, setIsTitleEditable] = useState(false);
   const taskListRef = useRef(null);
-  const titleRef = useRef(null);
 
   const { title, isLoading, error, listOfCard, setTitle, addCard } =
     useCardListHook(cardlistId, passedTitle);
@@ -79,7 +78,6 @@ export default function CardList({
 
                 {isTitleEditable ? (
                   <AutoHeightTextarea
-                    ref={titleRef}
                     className={clsx(classes.header, classes.headerEditable)}
                     defaultValue={title}
                     autoFocus
