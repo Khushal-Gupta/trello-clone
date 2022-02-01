@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "qs";
+import { mapFetchedCard } from "./card-api";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:1337/api/cardlists/",
@@ -16,7 +17,10 @@ const mapFetchedCardlist = ({ id, attributes }) => {
   */
   let cardList = { id, ...attributes, order: +attributes.order };
   if (attributes.cards) {
-    cardList = { ...cardList, cards: attributes.cards.data };
+    const fetchedCardsArray = attributes.cards.data.map((card) =>
+      mapFetchedCard(card)
+    );
+    cardList = { ...cardList, cards: fetchedCardsArray };
   }
   return cardList;
 };

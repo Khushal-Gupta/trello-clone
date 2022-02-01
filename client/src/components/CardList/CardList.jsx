@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import mergeRefs from "react-merge-refs";
 
 import Card from "../Card";
 import classes from "./CardList.module.css";
@@ -54,47 +55,61 @@ export default function CardList({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div
-            className={clsx(classes.wrapper, passedClasses)}
-            ref={taskListRef}
+          <Droppable
+            droppableId={`droplist#${cardlistId}`}
+            direction="vertical"
+            type="card"
           >
-            <div
-              className={clsx(
-                classes.header,
-                classes.headerNotEditable,
-                isTitleEditable && classes.hidden
-              )}
-              onClick={() => setIsTitleEditable(true)}
-            >
-              {title}
-            </div>
+            {(provided) => (
+              <div
+                className={clsx(classes.wrapper, passedClasses)}
+                ref={mergeRefs([taskListRef, provided.innerRef])}
+                {...provided.droppableProps}
+              >
+                <div
+                  className={clsx(
+                    classes.header,
+                    classes.headerNotEditable,
+                    isTitleEditable && classes.hidden
+                  )}
+                  onClick={() => setIsTitleEditable(true)}
+                >
+                  {title}
+                </div>
 
-            {isTitleEditable ? (
-              <AutoHeightTextarea
-                ref={titleRef}
-                className={clsx(classes.header, classes.headerEditable)}
-                defaultValue={title}
-                autoFocus
-                rows={1}
-                onBlur={(value) => {
-                  setTitle(value);
-                  setIsTitleEditable(false);
-                }}
-              />
-            ) : null}
+                {isTitleEditable ? (
+                  <AutoHeightTextarea
+                    ref={titleRef}
+                    className={clsx(classes.header, classes.headerEditable)}
+                    defaultValue={title}
+                    autoFocus
+                    rows={1}
+                    onBlur={(value) => {
+                      setTitle(value);
+                      setIsTitleEditable(false);
+                    }}
+                  />
+                ) : null}
 
-            <div className={classes.listOfCardWrapper}>
-              {listOfCard.map((elem) => (
-                <Card cardId={elem.id} key={elem.id} />
-              ))}
-            </div>
-
-            <AddCardForm
-              showNewCardEditor={showNewCardEditor}
-              setShowNewCardEditor={setShowNewCardEditor}
-              addCard={addCard}
-            />
-          </div>
+                <div className={classes.listOfCardWrapper}>
+                  {listOfCard.map((elem, index) => (
+                    <Card
+                      cardId={elem.id}
+                      cardlistId={cardlistId}
+                      key={elem.id}
+                      index={index}
+                    />
+                  ))}
+                </div>
+                {provided.placeholder}
+                <AddCardForm
+                  showNewCardEditor={showNewCardEditor}
+                  setShowNewCardEditor={setShowNewCardEditor}
+                  addCard={addCard}
+                />
+              </div>
+            )}
+          </Droppable>
         </div>
       )}
     </Draggable>

@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:1337/api/cards/",
 });
 
-const mapFetchedCard = ({ id, attributes }) => {
+export const mapFetchedCard = ({ id, attributes }) => {
   return { id, ...attributes, order: +attributes.order };
 };
 

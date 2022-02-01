@@ -12,15 +12,22 @@ export const useCardListHook = (cardlistId) => {
     data: { title, cards: listOfCard },
   } = useQuery(
     queryKey,
-    () =>
-      findOneCardlist(cardlistId, {
+    async () => {
+      let res = await findOneCardlist(cardlistId, {
         populate: {
           cards: {
-            fields: ["id"],
+            fields: ["id", "order", "title"],
             sort: ["order:asc"],
           },
         },
-      }),
+      });
+      let { cards: cardsArray } = res;
+      cardsArray = cardsArray.map((card) => ({
+        ...card,
+        cardlist: cardlistId,
+      }));
+      return { ...res, cards: cardsArray };
+    },
     {
       initialData: { title: "Loading..", cards: [] },
     }
