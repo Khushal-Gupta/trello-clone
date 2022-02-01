@@ -64,9 +64,7 @@ export default function CardList({
                 classes.headerNotEditable,
                 isTitleEditable && classes.hidden
               )}
-              onClick={() => {
-                setIsTitleEditable(true);
-              }}
+              onClick={() => setIsTitleEditable(true)}
             >
               {title}
             </div>
