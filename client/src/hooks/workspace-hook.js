@@ -16,7 +16,7 @@ export const useWorkspaceHook = () => {
     data: listOfCardList,
   } = useQuery(queryKey, () => findCardlists());
 
-  const addCardListMutationHook = useMutation(
+  const { mutate: addCardListMutation } = useMutation(
     (newCardListObject) => postCardlist(newCardListObject),
     {
       onSuccess: (newCardList) => {
@@ -25,7 +25,6 @@ export const useWorkspaceHook = () => {
           newCardList,
         ]);
       },
-
       onSettled: () => {
         queryClient.invalidateQueries(queryKey);
       },
@@ -37,7 +36,7 @@ export const useWorkspaceHook = () => {
       title: newCardListTitle,
       order: listOfCardList.length,
     };
-    addCardListMutationHook.mutate(newCardListOject);
+    addCardListMutation.mutate(newCardListOject);
   };
 
   const { mutate: updateCardListOrderMutation } = useMutation(
@@ -101,13 +100,14 @@ export const useWorkspaceHook = () => {
       const newParentCardlistId = +droppableId.split("#")[1];
       const oldParentCardlistId = +draggableId.split("#")[0];
       if (oldParentCardlistId === newParentCardlistId) {
+        // If card is being dropped to same cardlist
         handleCardDropInSameCardlist({
           result,
           updateCardOrderMutation,
           queryClient,
         });
       } else {
-        // If card is being dropped to a different list
+        // If card is being dropped to a different cardlist
         handleCardDropInDifferentCardlist({
           result,
           updateCardOrderMutation,

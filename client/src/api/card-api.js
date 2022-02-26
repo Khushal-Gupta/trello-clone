@@ -10,15 +10,11 @@ export const mapFetchedCard = ({ id, attributes }) => {
 };
 
 export const findOneCard = async (cardId) => {
-  try {
-    let {
-      data: { data: card },
-    } = await axiosInstance.get(`/${cardId}`);
-    const fetchedCard = mapFetchedCard(card);
-    return fetchedCard;
-  } catch (err) {
-    throw err;
-  }
+  let {
+    data: { data: card },
+  } = await axiosInstance.get(`/${cardId}`);
+  const fetchedCard = mapFetchedCard(card);
+  return fetchedCard;
 };
 
 export const findCards = async (
@@ -26,31 +22,23 @@ export const findCards = async (
   sort = ["order:asc"],
   populate
 ) => {
-  try {
-    const queryParams = qs.stringify(
-      { filters, sort, populate },
-      { encodeValuesOnly: true }
-    );
-    let {
-      data: { data: fetchedCards },
-    } = await axiosInstance.get(`/?${queryParams}`);
-    fetchedCards = fetchedCards.map((card) => mapFetchedCard(card));
-    return fetchedCards;
-  } catch (err) {
-    throw err;
-  }
+  const queryParams = qs.stringify(
+    { filters, sort, populate },
+    { encodeValuesOnly: true }
+  );
+  let {
+    data: { data: fetchedCards },
+  } = await axiosInstance.get(`/?${queryParams}`);
+  fetchedCards = fetchedCards.map((card) => mapFetchedCard(card));
+  return fetchedCards;
 };
 
 export const postCard = async (newCardObject) => {
-  try {
-    let {
-      data: { data: newCard },
-    } = await axiosInstance.post("/", { data: newCardObject });
-    newCard = mapFetchedCard(newCard);
-    return newCard;
-  } catch (err) {
-    throw err;
-  }
+  let {
+    data: { data: newCard },
+  } = await axiosInstance.post("/", { data: newCardObject });
+  newCard = mapFetchedCard(newCard);
+  return newCard;
 };
 
 export const putCards = async (patchPayload) => {

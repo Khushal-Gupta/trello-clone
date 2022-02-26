@@ -10,29 +10,9 @@ export const useCardListHook = (cardlistId) => {
     isLoading,
     error,
     data: { title, cards: listOfCard },
-  } = useQuery(
-    queryKey,
-    async () => {
-      let res = await findOneCardlist(cardlistId, {
-        populate: {
-          cards: {
-            fields: ["id", "order", "title"],
-            sort: ["order:asc"],
-          },
-        },
-      });
-
-      let { cards: cardsArray } = res;
-      cardsArray = cardsArray.map((card) => ({
-        ...card,
-        cardlist: cardlistId,
-      }));
-      return { ...res, cards: cardsArray };
-    },
-    {
-      initialData: { title: "Loading..", cards: [] },
-    }
-  );
+  } = useQuery(queryKey, () => findOneCardlist(cardlistId), {
+    initialData: { title: "Loading..", cards: [] },
+  });
 
   const { mutate: addCardMutation } = useMutation(postCard, {
     onSuccess: (newCard) => {
@@ -40,9 +20,6 @@ export const useCardListHook = (cardlistId) => {
         ...prevState,
         cards: [...prevState.cards, newCard],
       }));
-    },
-    onError: (error) => {
-      console.log(error);
     },
     onSettled: () => {
       queryClient.invalidateQueries(queryKey);
@@ -56,7 +33,7 @@ export const useCardListHook = (cardlistId) => {
       order: listOfCard.length,
       cardlist: cardlistId,
     };
-    addCardMutation(newCardObject );
+    addCardMutation(newCardObject);
   };
 
   // const setCardTitle = (cardId, newTitle) => {
