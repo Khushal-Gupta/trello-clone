@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:1337/api/cardlists/",
 });
 
+
 const mapFetchedCardlist = ({ id, attributes }) => {
   /* Return value
   {

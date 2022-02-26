@@ -94,7 +94,7 @@ export default function CardList({
                     <Card
                       cardId={elem.id}
                       cardlistId={cardlistId}
-                      key={elem.id}
+                      key={elem.id.toString()}
                       index={index}
                     />
                   ))}

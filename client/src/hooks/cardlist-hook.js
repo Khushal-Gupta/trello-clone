@@ -21,6 +21,7 @@ export const useCardListHook = (cardlistId) => {
           },
         },
       });
+
       let { cards: cardsArray } = res;
       cardsArray = cardsArray.map((card) => ({
         ...card,
@@ -33,23 +34,20 @@ export const useCardListHook = (cardlistId) => {
     }
   );
 
-  const addCardMutationHook = useMutation(
-    (newCardObject) => postCard(newCardObject),
-    {
-      onSuccess: (newCard) => {
-        queryClient.setQueryData(queryKey, (prevState) => ({
-          ...prevState,
-          cards: [...prevState.cards, newCard.id],
-        }));
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-      onSettled: () => {
-        queryClient.invalidateQueries(queryKey);
-      },
-    }
-  );
+  const { mutate: addCardMutation } = useMutation(postCard, {
+    onSuccess: (newCard) => {
+      queryClient.setQueryData(queryKey, (prevState) => ({
+        ...prevState,
+        cards: [...prevState.cards, newCard],
+      }));
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(queryKey);
+    },
+  });
 
   const addCard = (newCardTitle) => {
     const newCardObject = {
@@ -58,7 +56,7 @@ export const useCardListHook = (cardlistId) => {
       order: listOfCard.length,
       cardlist: cardlistId,
     };
-    addCardMutationHook.mutate(newCardObject);
+    addCardMutation(newCardObject );
   };
 
   // const setCardTitle = (cardId, newTitle) => {

@@ -66,15 +66,12 @@ export const putCards = async (patchPayload) => {
       }
     }
    */
-  try {
-    let {
-      data: { data: patchedCards },
-    } = await axiosInstance.put("/", {
-      data: patchPayload,
-    });
-    patchedCards = patchedCards.map((card) => mapFetchedCard(card));
-    return patchedCards;
-  } catch (err) {
-    throw err;
-  }
+
+  let {
+    data: { data: patchedCards },
+  } = await axiosInstance.put("/", {
+    data: patchPayload,
+  });
+  patchedCards = patchedCards.map((card) => mapFetchedCard(card));
+  return patchedCards;
 };
