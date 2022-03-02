@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import { forwardRef, useCallback, useEffect } from "react";
+import { forwardRef, useCallback, useEffect, useRef } from "react";
+import mergeRefs from "react-merge-refs";
 
 import classes from "./AutoHeightTextarea.module.css";
 
@@ -19,22 +20,23 @@ const AutoHeightTextarea = (
   },
   ref
 ) => {
+  const localRef = useRef(null);
   const handleAutoHeight = useCallback(() => {
-    if (ref?.current) {
-      ref.current.style.height = "auto";
-      ref.current.style.height = ref.current.scrollHeight + "px";
+    if (localRef?.current) {
+      localRef.current.style.height = "auto";
+      localRef.current.style.height = localRef.current.scrollHeight + "px";
     }
-  }, [ref]);
+  }, [localRef]);
   useEffect(() => {
-    if (ref?.current) {
-      ref.current.selectionStart = ref.current.value.length;
+    if (localRef?.current) {
+      localRef.current.selectionStart = localRef.current.value.length;
     }
     handleAutoHeight();
-  }, [handleAutoHeight, ref]);
+  }, [handleAutoHeight, localRef]);
 
   return (
     <textarea
-      ref={ref}
+      ref={mergeRefs([localRef, ref])}
       id={id}
       className={clsx(className, classes.textarea)}
       onChange={(event) => {

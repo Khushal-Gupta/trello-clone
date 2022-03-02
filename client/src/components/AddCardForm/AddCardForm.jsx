@@ -1,16 +1,13 @@
 import clsx from "clsx";
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { VscAdd as AddIcon } from "react-icons/vsc";
 
-import { CardListContext } from "../../context/cardlist-context";
 import AutoHeightTextarea from "../TextArea";
 import classes from "./AddCardForm.module.css";
 
-const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor }) => {
+const AddCardForm = ({ showNewCardEditor, setShowNewCardEditor, addCard }) => {
   const [newCardTitle, setNewCardTitle] = useState("");
   const textareaRef = useRef(null);
-
-  const { addCard } = useContext(CardListContext);
 
   const addCardHandler = () => {
     const value = newCardTitle;

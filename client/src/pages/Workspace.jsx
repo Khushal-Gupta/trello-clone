@@ -1,10 +1,12 @@
 import AddCardListButton from "../components/AddCardListButton";
 import CardList from "../components/CardList";
 import classes from "./Workspace.module.css";
+
 import { useWorkspaceHook } from "../hooks/workspace-hook";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 export default function ProjectCardList() {
-  const { isLoading, error, listOfCardList, onAddCardListHandler } =
+  const { isLoading, error, listOfCardList, onAddCardListHandler, onDragEnd } =
     useWorkspaceHook();
 
   if (isLoading) return <div className={classes.wrapper}>Loading...</div>;
@@ -13,20 +15,32 @@ export default function ProjectCardList() {
     return <div className={classes.wrapper}>Some error occured...</div>;
 
   return (
-    <div className={classes.wrapper}>
-      {listOfCardList.map((elem) => (
-        <CardList
-          key={elem.id}
-          title={elem.title}
-          id={elem.id}
-          passedClasses={classes.childStyles}
-        />
-      ))}
-      <AddCardListButton
-        onAdd={onAddCardListHandler}
-        key="addProjectCardButton"
-        passedClasses={classes.childStyles}
-      />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="workspace" direction="horizontal" type="cardlist">
+        {(provided) => (
+          <div
+            className={classes.wrapper}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {listOfCardList.map((elem, index) => (
+              <CardList
+                key={elem.id}
+                title={elem.title}
+                id={elem.id}
+                index={index}
+                passedClasses={classes.childStyles}
+              />
+            ))}
+            {provided.placeholder}
+            <AddCardListButton
+              onAdd={onAddCardListHandler}
+              key="addProjectCardButton"
+              passedClasses={classes.childStyles}
+            />
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
