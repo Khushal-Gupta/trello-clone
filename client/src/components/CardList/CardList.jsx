@@ -8,13 +8,19 @@ import { CardListContext } from "../../context/cardlist-context";
 import AddCardForm from "../AddCardForm";
 import AutoHeightTextarea from "../TextArea";
 
-export default function CardList({ title: passedTitle, passedClasses }) {
+export default function CardList({
+  title: passedTitle,
+  passedClasses,
+  id: cardlistId,
+}) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
   const [isTitleEditable, setIsTitleEditable] = useState(false);
   const taskListRef = useRef(null);
   const titleRef = useRef(null);
   const {
     title,
+    isLoading,
+    error,
     listOfCard,
     setTitle,
     addCard,
@@ -22,7 +28,7 @@ export default function CardList({ title: passedTitle, passedClasses }) {
     setCardDescription,
     addCommentToCard,
     editComment,
-  } = useCardListHook(passedTitle);
+  } = useCardListHook(cardlistId, passedTitle);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {
@@ -35,6 +41,18 @@ export default function CardList({ title: passedTitle, passedClasses }) {
       document.removeEventListener("click", outsideClickHandler);
     };
   }, []);
+
+  if (isLoading)
+    return (
+      <div className={clsx(classes.wrapper, passedClasses)}>Loading...</div>
+    );
+
+  if (error)
+    return (
+      <div className={clsx(classes.wrapper, passedClasses)}>
+        Error Occured...
+      </div>
+    );
 
   return (
     <CardListContext.Provider
@@ -78,7 +96,7 @@ export default function CardList({ title: passedTitle, passedClasses }) {
 
         <div className={classes.listOfCardWrapper}>
           {listOfCard.map((elem) => (
-            <Card cardId={elem.id} key={elem.id} cardTitle={elem.title} />
+            <Card cardId={elem.id} key={elem.id} />
           ))}
         </div>
 
