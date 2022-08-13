@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const CardListContext = createContext({
+export const CardContext = createContext({
   id: null,
   title: null,
   listOfCard: [],

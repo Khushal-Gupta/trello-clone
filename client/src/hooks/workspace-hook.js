@@ -36,7 +36,7 @@ export const useWorkspaceHook = () => {
       title: newCardListTitle,
       order: listOfCardList.length,
     };
-    addCardListMutation.mutate(newCardListOject);
+    addCardListMutation(newCardListOject);
   };
 
   const { mutate: updateCardListOrderMutation } = useMutation(
