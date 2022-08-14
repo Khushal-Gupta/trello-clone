@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient } from "react-query";
-import { findOneCard } from "../api/card-api";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { findOneCard, putCards } from "../api/card-api";
 
 export const useCardHook = (cardId) => {
   const queryClient = useQueryClient();
@@ -8,25 +8,39 @@ export const useCardHook = (cardId) => {
   const {
     isLoading,
     error,
-    data: { title },
+    data: { title: cardTitle, description: cardDescription },
   } = useQuery(["card", cardId], () => findOneCard(cardId), {
-    initialData: { title: "....." },
+    initialData: { title: ".....", description: "..." },
   });
 
+  const { mutate: updateCard } = useMutation(
+    (updatedKeys) => putCards({ [cardId]: updatedKeys }),
+    {
+      onMutate: async (updatedKeys) => {
+        await queryClient.cancelQueries(queryKey);
+        const previousState = queryClient.getQueryData(queryKey);
+        queryClient.setQueryData(queryKey, (prevState) => ({
+          prevState,
+          ...updatedKeys,
+        }));
+        return { previousState };
+      },
+      onError: (error, variables, { previousState }) => {
+        queryClient.setQueryData(queryKey, () => previousState);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(queryKey);
+      },
+    }
+  );
+
   const setCardTitle = (cardId, newTitle) => {
-    queryClient.setQueryData(queryKey, (prevState) => ({
-      ...prevState,
-      title: newTitle,
-    }));
+    updateCard({ title: newTitle });
   };
 
-  // const setCardDescription = (cardId, newDescription) => {
-  //   // setListOfcard((prevList) =>
-  //   //   prevList.map((card) =>
-  //   //     card.id === cardId ? { ...card, description: newDescription } : card
-  //   //   )
-  //   // );
-  // };
+  const setCardDescription = (cardId, newDescription) => {
+    updateCard({ description: newDescription });
+  };
 
   // const addCommentToCard = (cardId, comment, creatorName, createdAt) => {
   //   // const commentObject = { id: uuidv4(), creatorName, createdAt, comment };
@@ -56,5 +70,12 @@ export const useCardHook = (cardId) => {
   //   // });
   // };
 
-  return { title, isLoading, error };
+  return {
+    cardTitle,
+    cardDescription,
+    isLoading,
+    error,
+    setCardTitle,
+    setCardDescription,
+  };
 };

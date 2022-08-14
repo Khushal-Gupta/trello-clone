@@ -3,14 +3,13 @@ import { MdOutlineDescription } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
 import clsx from "clsx";
 
-import { CardListContext } from "../../../context/cardlist-context";
+import { CardContext } from "../../../context/card-context";
 import AutoHeightTextarea from "../../TextArea";
 import classes from "./DescriptionComponent.module.css";
 
 export default function DescriptionComponent({ cardId }) {
   const textareaRef = useRef(null);
-  const { listOfCard, setCardDescription } = useContext(CardListContext);
-  const { description } = listOfCard.find((elem) => elem.id === cardId);
+  const { cardDescription, setCardDescription } = useContext(CardContext);
   const setDescription = (value) => {
     setCardDescription(cardId, value);
   };
@@ -45,7 +44,7 @@ export default function DescriptionComponent({ cardId }) {
           <div
             className={clsx(classes.lightTextClass, classes.actualDescription)}
           >
-            {description}
+            {cardDescription}
           </div>
         )}
         {isEditMode && (
@@ -54,17 +53,16 @@ export default function DescriptionComponent({ cardId }) {
               ref={textareaRef}
               className={classes.descriptionTextarea}
               placeholder="Add a more detailed description"
-              onBlur={(value) => {
-                setDescription(value);
-              }}
               autoFocus
-              defaultValue={description}
+              defaultValue={cardDescription}
             />
 
             <div className={classes.descriptionEditorActionsWrapper}>
               <button
                 className={classes.descriptionEditorSaveButton}
                 onClick={() => {
+                  let newDescription = textareaRef.current?.value ?? "";
+                  setDescription(newDescription);
                   setIsEditMode(false);
                 }}
               >
@@ -74,7 +72,6 @@ export default function DescriptionComponent({ cardId }) {
                 type="button"
                 className={classes.descriptionEditorCloseButton}
                 onClick={() => {
-                  setDescription(description);
                   setIsEditMode(false);
                 }}
               >

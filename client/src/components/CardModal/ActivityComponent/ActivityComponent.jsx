@@ -4,10 +4,10 @@ import clsx from "clsx";
 
 import CommentBox from "../CommentBox";
 import classes from "./ActivityComponent.module.css";
-import { CardListContext } from "../../../context/cardlist-context";
+import { CardContext } from "../../../context/card-context";
 
 export default function ActivityComponent({ cardId }) {
-  const { addCommentToCard, listOfCard } = useContext(CardListContext);
+  const { addCommentToCard, listOfCard } = useContext(CardContext);
   const { listOfComment: previousComments } = listOfCard.find(
     (elem) => elem.id === cardId
   );
@@ -57,7 +57,7 @@ const AddActivityItem = ({ onSave }) => {
 };
 
 const PreviousActivityItem = ({ comment, id, cardId }) => {
-  const { editComment } = useContext(CardListContext);
+  const { editComment } = useContext(CardContext);
   const [isEditingEnabled, setIsEditingEnabled] = useState(false);
   const onSave = (editedComment) => {
     editComment(cardId, id, editedComment, Date.now().toString());
