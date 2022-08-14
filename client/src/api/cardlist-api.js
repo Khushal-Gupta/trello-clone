@@ -49,17 +49,17 @@ export const findCardlists = async (
   sort = ["order:asc"],
   populate = {}
 ) => {
-    const queryParams = qs.stringify(
-      { filters, sort, populate },
-      { encodeValuesOnly: true }
-    );
-    let {
-      data: { data: fetchedCardlists },
-    } = await axiosInstance.get(`/?${queryParams}`);
-    fetchedCardlists = fetchedCardlists.map((cardlist) =>
-      mapFetchedCardlist(cardlist)
-    );
-    return fetchedCardlists;
+  const queryParams = qs.stringify(
+    { filters, sort, populate },
+    { encodeValuesOnly: true }
+  );
+  let {
+    data: { data: fetchedCardlists },
+  } = await axiosInstance.get(`/?${queryParams}`);
+  fetchedCardlists = fetchedCardlists.map((cardlist) =>
+    mapFetchedCardlist(cardlist)
+  );
+  return fetchedCardlists;
 };
 
 export const postCardlist = async (newCardlistObject) => {

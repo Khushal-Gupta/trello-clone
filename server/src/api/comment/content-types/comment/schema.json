@@ -22,11 +22,9 @@
       "target": "api::card.card",
       "inversedBy": "comments"
     },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "comments"
+    "creatorName": {
+      "type": "string",
+      "required": true
     }
   }
 }

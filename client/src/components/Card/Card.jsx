@@ -6,9 +6,17 @@ import classes from "./Card.module.css";
 import { CardContext } from "../../context/card-context";
 import CardModal from "../CardModal/CardModal";
 
-export default function Card({ cardId, index, cardlistId }) {
-  const { cardTitle, cardDescription, setCardTitle, setCardDescription } =
-    useCardHook(cardId);
+export default function Card({ cardId, index, cardlistId, cardlistTitle }) {
+  const {
+    cardTitle,
+    cardDescription,
+    listOfComments,
+    setCardTitle,
+    setCardDescription,
+    addCommentToCard,
+    editComment,
+    deleteComment,
+  } = useCardHook(cardId);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -17,9 +25,14 @@ export default function Card({ cardId, index, cardlistId }) {
       value={{
         cardId,
         cardTitle,
+        cardlistTitle,
         cardDescription,
+        listOfComments,
         setCardTitle,
         setCardDescription,
+        addCommentToCard,
+        editComment,
+        deleteComment,
       }}
     >
       <Draggable draggableId={`${cardlistId}#${cardId}`} index={index}>

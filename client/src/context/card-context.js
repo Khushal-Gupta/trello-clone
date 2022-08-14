@@ -5,10 +5,12 @@ export const CardContext = createContext({
   cardTitle: "...Loading Title",
   cardDescription: "...Loading Description",
   listTitle: ".....",
+  listOfComments: [],
   setCardTitle: (cardId, newTitle) => {},
   setCardDescription: (cardId, newDescription) => {},
   addCommentToCard: (cardId, comment, creatorName, createdAt) => {},
   editComment: (cardId, commentId, newComment, updatedAt) => {},
+  deleteComment: (commentId) => {},
 });
 
 /*** CardList

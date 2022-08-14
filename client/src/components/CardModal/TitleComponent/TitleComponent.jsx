@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import clsx from "clsx";
 import { MdTitle } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
@@ -9,7 +9,7 @@ import AutoHeightTextarea from "../../TextArea";
 
 export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { setCardTitle, listTitle, cardTitle } = useContext(CardContext);
+  const { setCardTitle, cardlistTitle, cardTitle } = useContext(CardContext);
 
   const onBlurTitleFieldHandler = (value) => {
     if (value) {
@@ -47,7 +47,7 @@ export default function TitleComponent({ cardId }) {
             <span
               className={clsx(classes.lightTextClass, classes.listTitleButton)}
             >
-              {listTitle}
+              {cardlistTitle}
             </span>
           </div>
 

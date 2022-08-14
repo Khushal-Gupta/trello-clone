@@ -17,7 +17,7 @@ export default function CardModal({ show, onClose, cardId }) {
       <div className={classes.cardDetailWrapper}>
         <div className={classes.activityAndDescriptionWrapper}>
           <DescriptionComponent cardId={cardId} />
-          {/* <ActivityComponent cardId={cardId} /> */}
+          <ActivityComponent cardId={cardId} />
         </div>
 
         <SideActionsComponent />

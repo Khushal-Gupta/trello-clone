@@ -26,7 +26,6 @@ export default function ProjectCardList() {
             {listOfCardList.map((elem, index) => (
               <CardList
                 key={elem.id}
-                title={elem.title}
                 id={elem.id}
                 index={index}
                 passedClasses={classes.childStyles}
