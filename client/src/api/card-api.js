@@ -1,18 +1,36 @@
 import axios from "axios";
 import qs from "qs";
+import { mapFetchedComment } from "./comment-api";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:1337/api/cards/",
 });
 
 export const mapFetchedCard = ({ id, attributes }) => {
-  return { id, ...attributes, order: +attributes.order };
+  let transformedCard = { id, ...attributes, order: +attributes.order };
+  if (transformedCard.comments) {
+    transformedCard = {
+      ...transformedCard,
+      comments: transformedCard.comments.data.map((comment) =>
+        mapFetchedComment(comment)
+      ),
+    };
+  }
+  return transformedCard;
 };
 
 export const findOneCard = async (cardId) => {
+  const config = {
+    populate: {
+      comments: {
+        sort: ["createdAt:desc"],
+      },
+    },
+  };
+  const queryParams = qs.stringify(config, { encodeValuesOnly: true });
   let {
     data: { data: card },
-  } = await axiosInstance.get(`/${cardId}`);
+  } = await axiosInstance.get(`/${cardId}?${queryParams}`);
   const fetchedCard = mapFetchedCard(card);
   return fetchedCard;
 };

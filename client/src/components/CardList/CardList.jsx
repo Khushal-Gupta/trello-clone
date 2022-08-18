@@ -9,18 +9,13 @@ import { useCardListHook } from "../../hooks/cardlist-hook";
 import AddCardForm from "../AddCardForm";
 import AutoHeightTextarea from "../TextArea";
 
-export default function CardList({
-  title: passedTitle,
-  passedClasses,
-  id: cardlistId,
-  index,
-}) {
+export default function CardList({ passedClasses, id: cardlistId, index }) {
   const [showNewCardEditor, setShowNewCardEditor] = useState(false);
   const [isTitleEditable, setIsTitleEditable] = useState(false);
   const taskListRef = useRef(null);
 
   const { title, isLoading, error, listOfCard, setTitle, addCard } =
-    useCardListHook(cardlistId, passedTitle);
+    useCardListHook(cardlistId);
 
   useEffect(() => {
     const outsideClickHandler = (event) => {
@@ -94,6 +89,7 @@ export default function CardList({
                     <Card
                       cardId={elem.id}
                       cardlistId={cardlistId}
+                      cardlistTitle={title}
                       key={elem.id.toString()}
                       index={index}
                     />

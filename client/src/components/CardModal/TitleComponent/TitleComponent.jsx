@@ -1,21 +1,15 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import clsx from "clsx";
 import { MdTitle } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
 
 import classes from "./TitleComponent.module.css";
-import { CardListContext } from "../../../context/cardlist-context";
+import { CardContext } from "../../../context/card-context";
 import AutoHeightTextarea from "../../TextArea";
 
 export default function TitleComponent({ cardId }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const {
-    setCardTitle,
-    title: listTitle,
-    listOfCard,
-  } = useContext(CardListContext);
-
-  const { title } = listOfCard.find((card) => card.id === cardId);
+  const { setCardTitle, cardlistTitle, cardTitle } = useContext(CardContext);
 
   const onBlurTitleFieldHandler = (value) => {
     if (value) {
@@ -43,7 +37,7 @@ export default function TitleComponent({ cardId }) {
             setIsEditMode(true);
           }}
           onBlur={onBlurTitleFieldHandler}
-          defaultValue={title}
+          defaultValue={cardTitle}
         />
         <div
           className={clsx(classes.lightTextClass, classes.listTitleRowWrapper)}
@@ -53,7 +47,7 @@ export default function TitleComponent({ cardId }) {
             <span
               className={clsx(classes.lightTextClass, classes.listTitleButton)}
             >
-              {listTitle}
+              {cardlistTitle}
             </span>
           </div>
 

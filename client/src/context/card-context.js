@@ -1,15 +1,16 @@
 import { createContext } from "react";
 
-export const CardListContext = createContext({
-  id: null,
-  title: null,
-  listOfCard: [],
-  setTitle: (newTitle) => {},
-  addCard: (newTitle) => {},
+export const CardContext = createContext({
+  cardId: null,
+  cardTitle: "...Loading Title",
+  cardDescription: "...Loading Description",
+  listTitle: ".....",
+  listOfComments: [],
   setCardTitle: (cardId, newTitle) => {},
   setCardDescription: (cardId, newDescription) => {},
   addCommentToCard: (cardId, comment, creatorName, createdAt) => {},
   editComment: (cardId, commentId, newComment, updatedAt) => {},
+  deleteComment: (commentId) => {},
 });
 
 /*** CardList

@@ -4,21 +4,15 @@ import clsx from "clsx";
 
 import CommentBox from "../CommentBox";
 import classes from "./ActivityComponent.module.css";
-import { CardListContext } from "../../../context/cardlist-context";
+import { CardContext } from "../../../context/card-context";
+import { userFriendlyTimeFromNow } from "../../../util/dateUtil";
 
 export default function ActivityComponent({ cardId }) {
-  const { addCommentToCard, listOfCard } = useContext(CardListContext);
-  const { listOfComment: previousComments } = listOfCard.find(
-    (elem) => elem.id === cardId
-  );
+  const { addCommentToCard, listOfComments } = useContext(CardContext);
+
   const addCommentHandler = (newComment) => {
     if (newComment) {
-      addCommentToCard(
-        cardId,
-        newComment,
-        "Khushal Gupta",
-        Date.now().toString()
-      );
+      addCommentToCard(newComment, "Khushal Gupta");
     }
   };
   return (
@@ -30,12 +24,13 @@ export default function ActivityComponent({ cardId }) {
         <div className={classes.activityHeader}>Activity</div>
       </div>
       <AddActivityItem key="add" onSave={addCommentHandler} />
-      {previousComments.map((elem) => (
-        <PreviousActivityItem
+      {listOfComments.map((elem) => (
+        <ActivityItem
           key={elem.id}
           comment={elem.comment}
           id={elem.id}
           cardId={cardId}
+          createdAt={elem.createdAt}
         />
       ))}
     </div>
@@ -56,12 +51,13 @@ const AddActivityItem = ({ onSave }) => {
   );
 };
 
-const PreviousActivityItem = ({ comment, id, cardId }) => {
-  const { editComment } = useContext(CardListContext);
+const ActivityItem = ({ comment, id, cardId, createdAt }) => {
+  const { editComment, deleteComment } = useContext(CardContext);
   const [isEditingEnabled, setIsEditingEnabled] = useState(false);
   const onSave = (editedComment) => {
-    editComment(cardId, id, editedComment, Date.now().toString());
+    editComment(id, editedComment);
   };
+
   return (
     <div className={classes.activityItemWrapper}>
       <ImagePlaceholder />
@@ -70,7 +66,7 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
           <span className={classes.previousActivityHeaderName}>
             Khushal Gupta
           </span>{" "}
-          an hour ago
+          {userFriendlyTimeFromNow(createdAt)}
         </div>
         {isEditingEnabled ? (
           <CommentBox
@@ -96,7 +92,14 @@ const PreviousActivityItem = ({ comment, id, cardId }) => {
               Edit
             </span>
             <span className={classes.previousActivitySpacer}>-</span>
-            <span className={classes.previousActivityDeleteButton}>Delete</span>
+            <span
+              className={classes.previousActivityDeleteButton}
+              onClick={() => {
+                deleteComment(id);
+              }}
+            >
+              Delete
+            </span>
           </div>
         ) : null}
       </div>
